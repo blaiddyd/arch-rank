@@ -7,20 +7,22 @@ from app import app
 def index():
     links = [
         {
-            'text': 'Get Started',
-            'path': '#'
-        },
-        {
-            'text': 'Log In',
-            'path': '#'
-        },
-        {
             'text': 'How it Works',
             'path': '#'
         },
         {
             'text': 'FAQ',
             'path': '#'
+        },
+        {
+            'text': 'Citizens of the Month',
+            'path': '#'
+        },
+        {
+            'text': 'Login',
+            'path': '#'
         }
     ]
     return render_template('index.html', title='Welcome', links=links)
+
+
