@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Log In</h1>
+    <form action="#" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.citizen_id.label }}
+            <br>
+            {{ form.citizen_id(size=32) }}
+        </p>
+        <p>
+            {{ form.password.label }}
+            <br>
+            {{ form.password(size=32) }}
+        </p>
+        <p>
+            {{ form.keepsigned() }} {{ form.keepsigned.label }}
+        </p>
+        <p>{{ from.submit() }}</p>
+    </form>
+     
+{% endblock %}

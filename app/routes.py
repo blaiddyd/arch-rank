@@ -1,8 +1,10 @@
 from flask import render_template
 from app import app
+from app.forms import Login, SignUp, CitizenReport
 
 @app.route('/')
 @app.route('/index')
+@app.route('/login')
 
 def index():
     links = [
@@ -25,4 +27,6 @@ def index():
     ]
     return render_template('index.html', title='Welcome', links=links)
 
-
+def login():
+    form = Login()
+    return render_template('login.html', title='Login', form=form)
