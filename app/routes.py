@@ -3,6 +3,8 @@ from app import app
 from app.forms import Login, SignUp, CitizenReport
 
 @app.route('/')
+@app.route('/index')
+
 def index():
     links = [
         {
