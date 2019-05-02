@@ -1,5 +1,5 @@
-# CitiRank
-Drew and Ekin's amazing CITS3403 project
+# Arch-Rank
+Drew and Ekin's amazing citizen control project for the Agean Government
 
 ## Sections
 - Home/About
