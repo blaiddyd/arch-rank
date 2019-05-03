@@ -1,23 +1,19 @@
 <html lang="en">
     <head>
-        <title>{{ title }} - *Insert our government's name here*</title>
+        <title>{{ title }} - Arch</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="../styles/main.css" />
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">App Name</a>
+            <a class="navbar-brand" href="{{ url_for('index') }}">Arch</a>
             <ul class="nav justify-content-end">
                 {% for link in links %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ link.text }}</a>
+                    <a class="nav-link" href="{{ link.path }}">{{ link.text }}</a>
                 </li>
                 {% endfor %}
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <button type="button" class="btn btn-primary">Get Started</button>
-            </form>
-            
         </nav>
         <div class="main-content">
             {% block content %} {% endblock content %}
