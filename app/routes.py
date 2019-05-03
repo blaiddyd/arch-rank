@@ -18,6 +18,10 @@ links = [
         {
             'text': 'Login',
             'path': '/login'
+        },
+        {
+            'text': 'About',
+            'path': '/about'
         }
     ]
 
