@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, EqualTo, ValidationError
+from wtforms.fields.html5 import EmailField
+from app.models import Citizen
 
 class Login(FlaskForm):
     citizen_id = StringField('Citizen ID', validators=[DataRequired()])
@@ -12,8 +14,13 @@ class SignUp(FlaskForm):
     citizen_id = StringField('Citizen ID', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    confirmPass = PasswordField('Confirm Password', validators=[DataRequired()])
+    confirmPass = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
+
+    def validate_id(self, citizen_id):
+        citizen = Citizen.query.filter_by(citizen_id=citizen_id.data).first()
+        if citizen is not None:
+            raise ValidationError('This citizen already exists in Arch')
 
 class CitizenReport(FlaskForm):
     reporter = StringField('Your Citizen ID', validators=[DataRequired()])
@@ -27,3 +34,9 @@ class CitizenReport(FlaskForm):
             ('no_celebrating', 'Not Celebrating *Important Holiday*')
         ]
     )
+    submit = SubmitField('Lodge Your Report')
+
+class CitizenStatus(FlaskForm):
+    status = StringField('Write Your Status ')
+
+

@@ -1,7 +1,9 @@
 from datetime import datetime
-from app import db
+from app import db, login
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
-class Citizen(db.Model):
+class Citizen(db.Model, UserMixin):
     citizen_id = db.Column(db.String(12), primary_key=True)
     name  = db.Column(db.String(64), index=True)
     password_hash = db.Column(db.String(128))
@@ -9,15 +11,16 @@ class Citizen(db.Model):
 
     def __repr__(self):
         return '<Citizen {}>'.format(self.citizen_id)
+    
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+    
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
-class Admin(db.Model):
-    admin_id = db.Column(db.String(12), primary_key=True)
-    name  = db.Column(db.String(64), index=True)
-    password_hash = db.Column(db.String(128))
-    permission = db.Column(db.String(20), index=True, default='admin')
-
-    def __repr__(self):
-        return '<Admin {}>'.format(self.admin_id)
+@login.user_loader
+def get_user(citizen_id):
+    return Citizen.query.get(init(citizen_id))
 
 class Report(db.Model):
     reporter_id = db.Column(db.String(12), db.ForeignKey('citizen.citizen_id'))
