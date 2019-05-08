@@ -5,24 +5,24 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import Citizen
 from flask import redirect, url_for
 
-@app.route('/')
-@app.route('/index')
-
-def index():
-    links = [
+links = [
         {
             'text': 'About',
             'path': url_for('about')
         },
         {
-            'text': 'Citizens of the Month',
-            'path': url_for('citizen_ranking')
+            'text': 'Rank',
+            'path': url_for('rank')
         },
         {
             'text': 'Login',
             'path': url_for('login')
         }
     ]
+
+@app.route('/')
+@app.route('/index')
+def index():
     return render_template('index.html', title='Welcome', links=links)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -38,7 +38,22 @@ def register():
         return redirect(url_for('login'))
     return render_template('signup.html', title='Join Arch', form=form)
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/feed')
+@login_required
+def feed():
+    return render_template('feed.html', title='Feed', links=links)
+
+@app.route('/profile/<citizen_id>')
+@login_required
+def profile(citizen_id):
+    citizen = Citizen.query.filter_by(citizen_id=citizen_id).first_or_404()
+    return render_template('profile.html', title='My Profile', links=links)
+
+@app.route('/rank')
+def rank():
+    return render_template('rank.html', title='Ranking', links=links)
+
+@app.route('/login',  methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('feed'))
@@ -56,20 +71,6 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/feed')
-@login_required
-def feed():
-    return 'You are viewing user feed'
-
-@app.route('/citizen/<citizen_id>')
-@login_required
-def citizen(citizen_id):
-    citizen = Citizen.query.filter_by(citizen_id=citizen_id).first_or_404()
-
 @app.route('/about')
 def about():
-    return 'This is about'
-
-@app.route('/citizen_ranking')
-def citizen_ranking():
-    return 'citizen_ranking'   
+    return 'This is about' 
