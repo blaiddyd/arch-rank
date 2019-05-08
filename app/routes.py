@@ -53,7 +53,7 @@ def login():
             return redirect(url_for('login'))
         login_user(citizen)
         return redirect(url_for('feed'))
-    return render_template('login.html', title='Login', form=form)
+    return render_template('login.html', form=form, title="Login")
 
 @app.route('/logout')
 def logout():
