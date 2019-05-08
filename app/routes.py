@@ -11,20 +11,16 @@ from flask import redirect, url_for
 def index():
     links = [
         {
-            'text': 'How it Works',
-            'path': '#'
-        },
-        {
-            'text': 'FAQ',
-            'path': '#'
+            'text': 'About',
+            'path': url_for('about')
         },
         {
             'text': 'Citizens of the Month',
-            'path': '#'
+            'path': url_for('citizen_ranking')
         },
         {
             'text': 'Login',
-            'path': '#'
+            'path': url_for('login')
         }
     ]
     return render_template('index.html', title='Welcome', links=links)
@@ -69,4 +65,11 @@ def feed():
 @login_required
 def citizen(citizen_id):
     citizen = Citizen.query.filter_by(citizen_id=citizen_id).first_or_404()
-    
+
+@app.route('/about')
+def about():
+    return 'This is about'
+
+@app.route('/citizen_ranking')
+def citizen_ranking():
+    return 'citizen_ranking'   
