@@ -5,7 +5,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import Citizen
 from flask import redirect, url_for
 
-links = [
+def get_links():
+    return [
         {
             'text': 'About',
             'path': url_for('about')
@@ -23,7 +24,7 @@ links = [
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Welcome', links=links)
+    return render_template('index.html', title='Welcome', links=get_links())
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -41,17 +42,17 @@ def register():
 @app.route('/feed')
 @login_required
 def feed():
-    return render_template('feed.html', title='Feed', links=links)
+    return render_template('feed.html', title='Feed', links=get_links())
 
 @app.route('/profile/<citizen_id>')
 @login_required
 def profile(citizen_id):
     citizen = Citizen.query.filter_by(citizen_id=citizen_id).first_or_404()
-    return render_template('profile.html', title='My Profile', links=links)
+    return render_template('profile.html', title='My Profile', links=get_links())
 
 @app.route('/rank')
 def rank():
-    return render_template('rank.html', title='Ranking', links=links)
+    return render_template('rank.html', title='Ranking', links=get_links())
 
 @app.route('/login',  methods=['GET', 'POST'])
 def login():
@@ -64,7 +65,7 @@ def login():
             return redirect(url_for('login'))
         login_user(citizen)
         return redirect(url_for('feed'))
-    return render_template('login.html', form=form, title="Login")
+    return render_template('login.html', form=form, links=get_links(), title="Login")
 
 @app.route('/logout')
 def logout():
