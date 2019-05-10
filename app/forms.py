@@ -12,7 +12,7 @@ class Login(FlaskForm):
 
 class SignUp(FlaskForm):
     citizen_id = StringField('Citizen ID', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired()])
+    # email = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirmPass = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')

@@ -18,10 +18,13 @@ class Citizen(db.Model, UserMixin):
     
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+    def get_id(self):
+        return (self.citizen_id)
 
 @login.user_loader
 def get_user(citizen_id):
-    return Citizen.query.get(init(citizen_id))
+    return Citizen.query.get(citizen_id)
 
 class Report(db.Model):
     reporter_id = db.Column(db.String(12), db.ForeignKey('citizen.citizen_id'))
