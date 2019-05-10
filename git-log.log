@@ -1,0 +1,27 @@
+*   bec9309 : merged with master
+|\  
+| * 02fbb50 : Added about page
+| * d03a703 : Updated Header
+| * e344151 : Update README.md
+| *   9a1fae6 : Merge pull request #1 from ekinbukulmez/ekin
+| |\  
+* | | 698fb8b : changes links
+* | | 597c3f7 : added bottom navbar and login page changes
+* | | 7679a2a : added user auth and signup
+| |/  
+|/|   
+* | 527be0e : added dockerfile
+|/  
+*   d7cf862 : merge with drubi changes
+|\  
+| * 08ce1f1 : Updated Readme
+| * c9e88d3 : My First Commit!
+* | c1982ad : routes fixed
+* | fcf135b : added database migrations and models
+|/  
+* 94f17ac : minor changes to forms.py
+* 6a90d0b : fixed config and added from classes
+* 2bf37f1 : added models and config for database
+* fed3f80 : added index route and simple navbar
+* 155aca0 : initial setup
+* e0a0c10 : Initial commit

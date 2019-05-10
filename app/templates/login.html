@@ -1,25 +1,22 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <div class="citizen-form">
-        <h1>Log In</h1>
-        <form action="#" method="POST" novalidate>
+    <div>
+        <form class="formbox" action="#" method="post" novalidate>
             {{ form.hidden_tag() }}
-            <p>
                 {{ form.citizen_id.label }}
-                <br>
-                {{ form.citizen_id(size=32) }}
-            </p>
-            <p>
+                {{ form.citizen_id(size=12) }}
                 {{ form.password.label }}
-                <br>
                 {{ form.password(size=32) }}
-            </p>
-            <p>
-                {{ form.keepsigned() }} {{ form.keepsigned.label }}
-            </p>
-            <p>{{ form.submit() }}</p>
+                {{ form.submit() }}
+            </form>
         </form>
     </div>
-     
+    <script>
+        $(document).ready(function() {
+            $('#citizen_id, #password').addClass('form-control');
+            $('#submit').addClass('btn btn-primary');
+        });
+    
+    </script>
 {% endblock content %}
