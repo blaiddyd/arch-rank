@@ -3,7 +3,8 @@ from app import app, db
 from app.forms import Login, SignUp, CitizenReport
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import Citizen
-from flask import redirect, url_for, flash
+from flask import redirect, url_for, flash, request
+from sqlalchemy import func
 
 def get_links():
     return [
@@ -56,7 +57,14 @@ def profile(citizen_id):
 
 @app.route('/rank')
 def rank():
-    return render_template('rank.html', title='Ranking', links=get_links())
+    page = request.args.get('page', 1, type=int)
+    citizens = Citizen.query.order_by(Citizen.score.desc()).paginate(page, 10, False)
+    next_citizens = url_for('rank', page=citizens.next_num) \
+        if citizens.has_next else None
+    prev_citizens = url_for('rank', page=citizens.prev_num) \
+        if citizens.has_prev else None
+    top_citizens = Citizen.query.filter(Citizen.score >= 5000).order_by(func.random()).limit(3)
+    return render_template('rank.html', citizens=citizens.items, tops=top_citizens, next=next_citizens, prev=prev_citizens)
 
 @app.route('/login',  methods=['GET', 'POST'])
 def login():

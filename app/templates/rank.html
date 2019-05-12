@@ -2,4 +2,30 @@
 
 {% block content %}
      <p>Rank page</p>
-{% endblock content %}
+     Highligted citizens
+     <ul>
+          {% for top in tops %}
+               <li>
+                    {{ top.citizen_id }}
+               </li>
+          {% endfor %}
+
+     </ul>
+
+     Standings
+     <ol>
+          {% for citizen in citizens %}
+               <li>
+                    Citizen {{ citizen.citizen_id }}: {{ citizen.score }}
+               </li>
+          {% endfor %}
+
+     </ol>
+     {% if prev %}
+          <a href="{{ prev }}">Citizens better than u</a>
+     {% endif %}
+
+     {% if next %}
+          <a href="{{ next }}">Citizens beneath u</a>
+     {% endif %}
+     {% endblock content %}
