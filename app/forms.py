@@ -1,18 +1,17 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
-from wtforms.validators import DataRequired, EqualTo, ValidationError
+from wtforms.validators import DataRequired, EqualTo, ValidationError, Length
 from wtforms.fields.html5 import EmailField
 from app.models import Citizen
 
 class Login(FlaskForm):
-    citizen_id = StringField('Citizen ID', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    citizen_id = StringField('Citizen ID', render_kw={"placeholder": "Citizen ID"}, validators=[DataRequired(), Length(8)])
+    password = PasswordField('Password', render_kw={"placeholder": "Password"}, validators=[DataRequired()])
     keepsigned = BooleanField('Remember Me')
     submit = SubmitField('Log In')
 
 class SignUp(FlaskForm):
     citizen_id = StringField('Citizen ID', validators=[DataRequired()])
-    # email = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirmPass = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')

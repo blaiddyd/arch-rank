@@ -1,16 +1,20 @@
-{% extends "login-layout.html" %}
+{% extends "login-base.html" %}
 
 {% block content %}
-    <div>
-        <form class="formbox" action="#" method="post" novalidate>
+    <div class="formbox">
+        <form class="form" action="#" method="post" >
             {{ form.hidden_tag() }}
-                {{ form.citizen_id.label }}
-                {{ form.citizen_id(size=12) }}
-                {{ form.password.label }}
-                {{ form.password(size=32) }}
+            <div class="input_field row">
+                <i class="material-icons-outlined md-32 col-sm-2 d-none d-sm-block">person</i>
+                {{ form.citizen_id(class="col-sm-10") }}
+            </div>
+            <div class="input_field row">
+                <i class="material-icons-outlined md-32 col-sm-2 d-none d-sm-block">lock</i>
+                {{ form.password(class="col-sm-10") }}
+            </div>
                 {{ form.submit() }}
-            </form>
         </form>
+        <a id="register" href="{{ url_for('register')}}">Create an account</a>
     </div>
     <script>
         $(document).ready(function() {

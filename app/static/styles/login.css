@@ -1,0 +1,88 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Main logo styling */
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    fill: #4e79a8;
+    margin-top: 30%;
+    margin-bottom: 10%;
+    width: 20%;
+}
+
+.logo * {
+    fill: #4e79a8;
+    width: 100%;
+}
+    
+/* Icon Styling */
+.material-icons-outlined {
+    float: left;
+    color: #4e79a8;
+    padding: 0px;
+    padding-top: 10px;
+}
+
+.material-icons-outlined.md-32 { 
+    font-size: 32px; 
+}
+
+/* Forms */
+.formbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%
+}
+
+.formbox .row {
+    margin: 2px;
+}
+
+.formbox form {
+    width: 30% + 50px;
+    margin: 0px;
+}
+
+.formbox input {
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #959595;
+    padding: 2px;
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+}
+
+#submit {
+    border: none;
+    background: #4e79a8;
+    padding: 5px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+#register {
+    color: #4e79a8;
+    font-size: 12px;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.navbar .nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.nav-link {
+    color: #4e79a8;
+}
