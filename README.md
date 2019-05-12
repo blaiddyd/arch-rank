@@ -2,9 +2,9 @@
 Drew and Ekin's amazing citizen control project for the Agean Government
 
 ## Sections
-- Home/About
+- Login/Register
 - Registration form
+- Home/About
 - Profile
 - Feed
 - Citizen Rank
-
