@@ -31,8 +31,18 @@ class Report(db.Model):
     reported_id = db.Column(db.String(12), db.ForeignKey('citizen.citizen_id'))
     report_id  = db.Column(db.Integer, primary_key=True)
     time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    report_category = db.Column(db.String(64))
+    report_category = db.Column(db.String(64), default='betrayal')
     body = db.Column(db.String(140))
 
     def __repr__(self):
         return '<Report {}>'.format(self.body)
+
+class Status(db.Model):
+    citizen_id = db.Column(db.String(12), db.ForeignKey('citizen.citizen_id'))
+    status_id = db.Column(db.Integer, primary_key=True) 
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    status_category = db.Column(db.String(64), default='self-praise')
+    body = body = db.Column(db.String(140))
+
+    def __repr__(self):
+        return '<Status {}>'.format(self.body)

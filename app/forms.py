@@ -1,8 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, EqualTo, ValidationError, Length
 from wtforms.fields.html5 import EmailField
 from app.models import Citizen
+
+offenses = [('-1000', 'Speaking Ill of the Supreme Commander'), ('-100', 'Insulting a Fellow Citizen'), ('-3000', 'Not Celebrating *Important Holiday*')]
+activities = [('2000', 'Graduating from Divine Academy'), ('3000', 'Praising the Supreme Commander'), ('100', 'Contributing to the Community')]
 
 class Login(FlaskForm):
     citizen_id = StringField('Citizen ID', render_kw={"placeholder": "Citizen ID"}, validators=[DataRequired(), Length(min=4, max=8)])
@@ -22,20 +25,15 @@ class SignUp(FlaskForm):
             raise ValidationError('This citizen already exists in Arch')
 
 class CitizenReport(FlaskForm):
-    reporter = StringField('Your Citizen ID', validators=[DataRequired()])
-    traitor = StringField("The Traitor's Citizen ID", validators=[DataRequired()])
-    category = SelectField(
-        'Type of Treason',
-        validators=[DataRequired()],
-        choices=[
-            ('speaking_ill', 'Speaking Ill of the Supreme Commander'), 
-            ('insulting_citizen', 'Insulting a Fellow Citizen'), 
-            ('no_celebrating', 'Not Celebrating *Important Holiday*')
-        ]
-    )
+    reporter = StringField('Your Citizen ID', validators=[DataRequired(), Length(min=4, max=8)])
+    traitor = StringField("The Traitor's Citizen ID", validators=[DataRequired(), Length(min=4, max=8)])
+    category = SelectField('Type of Treason', choices=offenses, validators=[DataRequired()])
+    body = TextAreaField('More about your report')
     submit = SubmitField('Lodge Your Report')
 
 class CitizenStatus(FlaskForm):
-    status = StringField('Write Your Status ')
+    status = TextAreaField("What's on your mind?")
+    status_category = SelectField('Type of Activity', choices=activities, validators=[DataRequired()])
+    submit = SubmitField('Submit Status')
 
 
