@@ -71,11 +71,13 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('feed'))
     form = Login()
+    if not form.validate_on_submit():
+        print('Form did not validate ')
     if form.validate_on_submit():
         citizen = Citizen.query.filter_by(citizen_id=form.citizen_id.data).first()
         if citizen is None or not citizen.check_password(form.password.data):
+            print('Bad login attempt')
             return redirect(url_for('login'))
-            flash('Bad login attempt')
         login_user(citizen)
         flash('Good login')
         return redirect(url_for('feed'))
