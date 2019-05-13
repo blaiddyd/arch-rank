@@ -5,19 +5,28 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/main.css') }}" />
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Arch - {{ title }}</title>
 
         <!-- Actual content -->
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/main.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/login.css') }}">
-        <title>{{ title }} - Arch</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/sidebar.css') }}">
     </head>
 
     <body>
-        <div class="container">   
+        <nav id="sidebar" class="d-none d-md-block sidebar">
+            <div class="sidebar-sticky">
+                <img src="{{ url_for('static', filename='assets/logotext.svg') }}" alt="Arch">
+                <ul class="nav flex-column">
+                    <li class="nav-item">test</li>
+                    <li class="nav-item">test2</li>
+                </ul>
+            </div>
+        </nav>
+         <div class="feedbox">
             {% block content %} {% endblock content %}
         </div>
     </body>

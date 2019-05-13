@@ -1,0 +1,19 @@
+<svg id="Layers" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 366.45 510.11">
+    <defs>
+        <style>
+            .cls-1,.cls-2 {
+                fill:#4e79a8;
+            }
+            .cls-2 {
+                font-size:80px;
+                font-family:AvenirNext-Medium, Avenir Next;
+                font-weight:500;
+                letter-spacing:0.11em;
+            }
+        </style>
+    </defs>
+    <path class="cls-1" d="M249.75.92C288.57,34.31,428.75,131.44,433,397l-60.51-37.56C367.45,164.53,249.75,74,249.75,74S129.55,170,127,359.44L66.53,397C66.53,293.91,94.91,114.86,249.75.92Z" transform="translate(-66.53 -0.92)"/>
+    <g id="Type">
+        <text class="cls-2" transform="translate(60.04 475.23)">ARCH</text>
+    </g>
+</svg>
