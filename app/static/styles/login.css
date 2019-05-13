@@ -1,23 +1,36 @@
+body {
+    overflow-y: hidden;
+}
+
 .container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.sign {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* Main logo styling */
 .logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    fill: #4e79a8;
-    margin-top: 30%;
+    display: block;
     margin-bottom: 10%;
-    width: 20%;
+    width: 20vmin;
+    height: 20vmin;
 }
 
-.logo * {
+.logo svg {
+    display: block;
     fill: #4e79a8;
-    width: 100%;
+    margin: 0 auto; 
+    width: inherit;
+    height: inherit;
 }
     
 /* Icon Styling */
@@ -25,7 +38,6 @@
     float: left;
     color: #4e79a8;
     padding: 0px;
-    padding-top: 10px;
 }
 
 .material-icons-outlined.md-32 { 
@@ -73,16 +85,18 @@
 
 .navbar {
     display: flex;
-    flex-direction: row;
     justify-content: center;
 }
-.navbar .nav {
+.nav {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 50%;
+    justify-content: space-evenly;
+    width: 90%;
+    flex-wrap: nowrap;
 }
 
 .nav-link {
     color: #4e79a8;
+    display: flex;
+    justify-content: center;
+
 }
