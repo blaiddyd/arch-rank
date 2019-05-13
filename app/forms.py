@@ -5,7 +5,7 @@ from wtforms.fields.html5 import EmailField
 from app.models import Citizen
 
 class Login(FlaskForm):
-    citizen_id = StringField('Citizen ID', render_kw={"placeholder": "Citizen ID"}, validators=[DataRequired(), Length(8)])
+    citizen_id = StringField('Citizen ID', render_kw={"placeholder": "Citizen ID"}, validators=[DataRequired(), Length(min=4, max=8)])
     password = PasswordField('Password', render_kw={"placeholder": "Password"}, validators=[DataRequired()])
     keepsigned = BooleanField('Remember Me')
     submit = SubmitField('Log In')
