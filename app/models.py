@@ -31,7 +31,7 @@ class Report(db.Model):
     reported_id = db.Column(db.String(12), db.ForeignKey('citizen.citizen_id'))
     report_id  = db.Column(db.Integer, primary_key=True)
     time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    report_category = db.Column(db.String(64))
+    report_category = db.Column(db.String(64), default='betrayal')
     body = db.Column(db.String(140))
 
     def __repr__(self):

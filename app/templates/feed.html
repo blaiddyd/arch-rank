@@ -3,4 +3,25 @@
 {% block content %}
      <p>Feed</p>
      <a href="{{ url_for('logout')}}">Logout</a>
+     <form method="post">
+          {{ form.hidden_tag() }}
+          {{ form.reporter.label }}
+          {{ form.reporter(size=8) }}
+          {{ form.traitor.label }}
+          {{ form.traitor(size=8) }}
+          {{ form.category.label }}
+          {{ form.category }}
+          {{ form.body.label }}
+          {{ form.body(size=140) }}
+          {{ form.submit() }}
+     </form>
+
+     <div>
+          {% for report in reports %}
+               {{ report.reporter_id }}
+               {{ report.reported_id }}
+               {{ report.time }}
+               {{ report.body }}
+          {% endfor %}
+     </div>
 {% endblock content %}
