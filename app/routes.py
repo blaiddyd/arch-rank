@@ -1,13 +1,13 @@
 from flask import render_template
 from app import app, db
-from app.forms import Login, SignUp, CitizenReport
+from app.forms import Login, SignUp, CitizenReport, CitizenStatus
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import Citizen, Report
+from app.models import Citizen, Report, Status
 from flask import redirect, url_for, flash, request
 from sqlalchemy import func
 import string, random
 
-def gen_report_id():
+def gen_id():
     chars = string.digits
     return int(''.join(random.choice(chars) for _ in range(0, 6)))
 
@@ -53,8 +53,9 @@ def register():
 def feed():
     invalid_citizen = False
     submit_error = False
-
+    page = request.args.get('page', 1, type=int)
     form = CitizenReport(reporter=current_user.citizen_id)
+    status_input = CitizenStatus()
     if form.validate_on_submit():
         reported = Citizen.query.filter_by(citizen_id=form.traitor.data).first()
         if reported is None:
@@ -64,17 +65,32 @@ def feed():
             try:
                 reported.score = reported.score + float(form.category.data)
                 db.session.commit()
-                new_report = Report(reporter_id=current_user.citizen_id, reported_id=reported.citizen_id, report_id=gen_report_id(), body=form.body.data)
+                new_report = Report(reporter_id=current_user.citizen_id, reported_id=reported.citizen_id, report_id=gen_id(), body=form.body.data)
                 db.session.add(new_report)
                 db.session.commit()
                 print('Successful report submission')
             except Exception as score_error:
                 print('Report submission error: ' + str(score_error))
     else:
-        print('Form validation error')
+        print('Report form validation error')
         print(form.errors)
-    reports = Report.query.all()
-    return render_template('feed.html', title='Feed', form=form, reports=reports)
+    if status_input.validate_on_submit():
+        try:
+            current_citizen = Citizen.query.filter_by(citizen_id=current_user.citizen_id).first()
+            current_citizen.score = current_citizen.score + float(status_input.status_category.data)
+            db.session.commit()
+            new_status = Status(citizen_id=current_user.citizen_id, status_id=gen_id(), body=status_input.status.data)
+            db.session.add(new_status)
+            db.session.commit()
+            print('Status submission successful')
+        except Exception as status_error:
+            print('Status submission error: ' + str(status_error))
+    else:
+        print('Status form validation error')
+        print(status_input.errors)
+    reports = Report.query.order_by(Report.time.desc()).paginate(page, 20, False)
+    all_status = Status.query.order_by(Status.timestamp.desc()).paginate(page, 20, False)
+    return render_template('feed.html', title='Feed', form=form, reports=reports.items, status_input=status_input, statuses=all_status.items)
 
 @app.route('/profile/<citizen_id>')
 @login_required

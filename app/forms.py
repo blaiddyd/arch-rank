@@ -5,6 +5,7 @@ from wtforms.fields.html5 import EmailField
 from app.models import Citizen
 
 offenses = [('-1000', 'Speaking Ill of the Supreme Commander'), ('-100', 'Insulting a Fellow Citizen'), ('-3000', 'Not Celebrating *Important Holiday*')]
+activities = [('2000', 'Graduating from Divine Academy'), ('3000', 'Praising the Supreme Commander'), ('100', 'Contributing to the Community')]
 
 class Login(FlaskForm):
     citizen_id = StringField('Citizen ID', render_kw={"placeholder": "Citizen ID"}, validators=[DataRequired(), Length(min=4, max=8)])
@@ -31,6 +32,8 @@ class CitizenReport(FlaskForm):
     submit = SubmitField('Lodge Your Report')
 
 class CitizenStatus(FlaskForm):
-    status = StringField('Write Your Status ')
+    status = TextAreaField("What's on your mind?")
+    status_category = SelectField('Type of Activity', choices=activities, validators=[DataRequired()])
+    submit = SubmitField('Submit Status')
 
 

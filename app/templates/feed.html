@@ -16,12 +16,34 @@
           {{ form.submit() }}
      </form>
 
+     <form method="post">
+          {{ status_input.hidden_tag() }}
+          {{ status_input.status_category.label() }}
+          {{ status_input.status_category }}
+          {{ status_input.status.label }}
+          {{ status_input.status(size=140) }}
+          {{ status_input.submit() }}
+     </form>
+
      <div>
+          <h3>Recent Reports</h3>
           {% for report in reports %}
                {{ report.reporter_id }}
                {{ report.reported_id }}
+               {{ report.report_category }}
                {{ report.time }}
                {{ report.body }}
           {% endfor %}
+     </div>
+
+     <div>
+          <h3>Recent Status</h3>
+          {% for status in statuses %}
+               {{ status.citizen_id }}
+               {{ status.body }}
+               {{ status.timestamp }}
+               {{ status.status_category }}
+          {% endfor %}
+
      </div>
 {% endblock content %}
