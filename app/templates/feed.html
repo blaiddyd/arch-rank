@@ -1,9 +1,18 @@
-
+{% extends "sidebar-base.html" %}
 {% block content %}
     <style>
          .container {
               width: 75%;
               margin: 3rem auto;
+              display: flex;
+              justify-content: start;
+              align-content: start;
+              align-items: start;
+              flex-direction: column;
+         }
+
+         .form-body {
+
          }
          .tab--slider {
               width: 100%;
@@ -67,7 +76,7 @@
 
     
     </style>
-     <div id="feedbox">
+     <div id="feed">
           <p>Feed</p>
           <a href="{{ url_for('logout')}}">Logout</a>
           <div class="container">
@@ -85,15 +94,14 @@
                     <div id="report-tab" class="tab--body">
                          <form method="post">
                               {{ form.hidden_tag() }}
-                              {{ form.reporter.label }}
-                              {{ form.reporter(size=8) }}
+                              <div class="form-body">
+                                   {{ form.body(size=140) }} 
+                              </div>
                               {{ form.traitor.label }}
                               {{ form.traitor(size=8) }}
                               {{ form.category.label }}
                               {{ form.category }}
-                              {{ form.body.label }}
-                              {{ form.body(size=140) }}
-                              {{ form.submit() }}
+                              {{ form.report_submit() }}
                          </form>
                     </div>
 
@@ -104,7 +112,7 @@
                               {{ status_input.status_category }}
                               {{ status_input.status.label }}
                               {{ status_input.status(size=140) }}
-                              {{ status_input.submit() }}
+                              {{ status_input.status_submit() }}
                          </form>
                     </div>
                </div>
@@ -131,7 +139,6 @@
 
           </div>
      </div>
-     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
      <script>
         $("document").ready(function(){
                $(".tab--body").hide();
