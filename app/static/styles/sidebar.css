@@ -1,9 +1,19 @@
 body {
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    height: 100vh;
+    margin: 0;
 }
 
-#sidebar {
-    background: lightgray;
+.page {
+    display: grid;
+    grid-template-columns: 20vw auto;
+}
+
+.nav {
+    position: fixed;
+    width: 20vw;
+    height: 100vh;
+    background-color: lightgray;
+}
+
+.feedbox {
+    grid-column-start: 2;
 }

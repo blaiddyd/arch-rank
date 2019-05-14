@@ -1,7 +1,6 @@
 {% extends "login-base.html" %}
 
 {% block content %}
-    <div class="formbox">
         <form class="form" method="post" novalidate>
             {{ form.hidden_tag() }}
             <div class="input_field row">
@@ -15,11 +14,9 @@
                 {{ form.submit() }}
         </form>
         <a id="register" href="{{ url_for('register')}}">Create an account</a>
-    </div>
     <script>
         $(document).ready(function() {
             $('#submit').addClass('btn btn-primary');
         });
-    
     </script>
 {% endblock content %}

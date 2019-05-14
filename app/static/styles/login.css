@@ -20,9 +20,9 @@ body {
 /* Main logo styling */
 .logo {
     display: block;
-    margin-bottom: 10%;
-    width: 20vmin;
-    height: 20vmin;
+    margin-bottom: 8vh;
+    width: calc(20vh + 5vw);
+    height: calc(20vh + 5vw);
 }
 
 .logo svg {
