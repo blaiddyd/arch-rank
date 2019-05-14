@@ -2,6 +2,9 @@
 
 {% block content %}
 <style>
+     #feed {
+          width: 50vw;
+     }
      .container {
           width: 75%;
           margin: 3rem auto;
@@ -33,43 +36,83 @@
       }
 
       .tab--tabs::after {
-           content: "";
-           width: 50%;
-           background: #4e79a8;
-           height: 100%;
-           position: absolute;
-           top: 0;
-           left: 0;
-           transition: all 250ms ease-in-out;
-           border-radius: 20px;
+          content: "";
+          width: 50%;
+          background: #4e79a8;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: all 250ms ease-in-out;
+          border-radius: 20px;
       }
 
       .tab--tabs.slide::after {
-           left: 50%;
+          left: 50%;
       }
 
       .tab-slider--trigger {
-           font-size: 12px;
-           line-height: 1;
-           font-weight: bold;
-           color: black;
-           text-transform: uppercase;
-           text-align: center;
-           padding: 11px 20px;
-           position: relative;
-           z-index: 2;
-           cursor: pointer;
-           display: inline-block;
-           transition: color 250ms ease-in-out;
-           user-select: none;
+          font-size: 12px;
+          line-height: 1;
+          font-weight: bold;
+          color: black;
+          text-transform: uppercase;
+          text-align: center;
+          padding: 11px 20px;
+          position: relative;
+          z-index: 2;
+          cursor: pointer;
+          display: inline-block;
+          transition: color 250ms ease-in-out;
+          user-select: none;
       }
 
       .tab-slider--trigger:active {
-           color: white;
+          color: white;
       }
 
       .tab--body {
-           margin-bottom: 20px;
+           width: 100%;
+          margin-bottom: 20px;
+          padding: 25px;
+      }
+
+      .form-body {
+          width: 100%;
+          margin-block-end: 20px;
+      }
+
+      .form-body textarea {
+           width: 100%;
+           border: none;
+           border-bottom: 2px solid #959595;
+      }
+
+      .form-actions {
+          width: 100%;
+          display: flex;
+          justify-content: start;
+          align-items: start;
+          align-content: start;
+          flex-direction: column;
+      }
+
+      .form-actions--container {
+          width: 100%;
+          margin-bottom: 20px;
+      }
+
+      .form-actions--container input {
+           width: 25%;
+           margin-right: 5px;
+      }
+
+      .form-actions--container select {
+           width: 70%;
+      }
+
+      .form-button {
+           float: right;
       }
 
 
@@ -93,24 +136,34 @@
                      <form method="post">
                           {{ form.hidden_tag() }}
                           <div class="form-body">
-                               {{ form.body(size=140) }} 
+                              {{ form.body(size=140) }} 
                           </div>
-                          {{ form.traitor.label }}
-                          {{ form.traitor(size=8) }}
-                          {{ form.category.label }}
-                          {{ form.category }}
-                          {{ form.report_submit() }}
+                          <div class="form-actions">
+                               <div class="form-actions--container">
+                                   {{ form.traitor(size=8) }}
+                                   {{ form.category }}
+                              </div>
+                              <div class="form-button">
+                                   {{ form.report_submit() }}
+                              </div>
+                         </div>
                      </form>
                 </div>
 
                 <div id="status-tab" class="tab--body">
                      <form method="post">
                           {{ status_input.hidden_tag() }}
-                          {{ status_input.status_category.label() }}
-                          {{ status_input.status_category }}
-                          {{ status_input.status.label }}
-                          {{ status_input.status(size=140) }}
-                          {{ status_input.status_submit() }}
+                          <div class="form-body">
+                              {{ status_input.status(size=140) }}
+                          </div>
+                          <div class="form-actions">
+                               <div class="form-actions--container">
+                                   {{ status_input.status_category }}
+                              </div>
+                              <div class="form-button">
+                                   {{ status_input.status_submit() }}
+                              </div>
+                         </div>
                      </form>
                 </div>
            </div>

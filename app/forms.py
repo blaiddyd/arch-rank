@@ -25,14 +25,13 @@ class SignUp(FlaskForm):
             raise ValidationError('This citizen already exists in Arch')
 
 class CitizenReport(FlaskForm):
-    reporter = StringField('Your Citizen ID', validators=[DataRequired(), Length(min=4, max=8)])
-    traitor = StringField("The Traitor's Citizen ID", validators=[DataRequired(), Length(min=4, max=8)])
-    category = SelectField('Type of Treason', choices=offenses, validators=[DataRequired()])
-    body = TextAreaField('More about your report')
+    traitor = StringField("The Traitor's Citizen ID", render_kw={"placeholder": "Traitor ID"}, validators=[DataRequired(), Length(min=4, max=8)])
+    category = SelectField('Type of Treason', render_kw={"placeholder": "Select an offense"}, choices=offenses, validators=[DataRequired()])
+    body = TextAreaField('More about your report', render_kw={"placeholder": "What would you like to report?"})
     report_submit = SubmitField('Lodge Your Report')
 
 class CitizenStatus(FlaskForm):
-    status = TextAreaField("What's on your mind?")
+    status = TextAreaField("What's on your mind?", render_kw={"placeholder": "What are you up to?"})
     status_category = SelectField('Type of Activity', choices=activities, validators=[DataRequired()])
     status_submit = SubmitField('Submit Status')
 
