@@ -1,6 +1,7 @@
 {% extends "sidebar-base.html" %}
 
 {% block content %}
+<div class="feedbox">
 <style>
      #feed {
           width: 50vw;
@@ -179,37 +180,38 @@
            {% endfor %}
       </div>
 
-      <div>
-           <h3>Recent Status</h3>
-           {% for status in statuses %}
-                {{ status.citizen_id }}
-                {{ status.body }}
-                {{ status.timestamp }}
-                {{ status.status_category }}
-           {% endfor %}
+          <div>
+               <h3>Recent Status</h3>
+               {% for status in statuses %}
+                    {{ status.citizen_id }}
+                    {{ status.body }}
+                    {{ status.timestamp }}
+                    {{ status.status_category }}
+               {% endfor %}
 
-      </div>
- </div>
- <script>
-    $("document").ready(function(){
-           $(".tab--body").hide();
-           $(".tab--body:first").show();
-      });
+          </div>
+     </div>
+     <script>
+     $("document").ready(function(){
+               $(".tab--body").hide();
+               $(".tab--body:first").show();
+          });
 
-      $(".tab--slider li").click(function() {
-           $(".tab--body").hide();
-           var activeTab = $(this).attr("rel");
-           $("#" + activeTab).fadeIn();
-                if ($(this).attr("rel") == "status-tab"){
-                     $('.tab--tabs').addClass('slide');
-                }
-                else{
-                     $('.tab--tabs').removeClass('slide');
-                }
-           $(".tab--slider li").removeClass("active");
-           $(this).addClass("active");
-      });
+          $(".tab--slider li").click(function() {
+               $(".tab--body").hide();
+               var activeTab = $(this).attr("rel");
+               $("#" + activeTab).fadeIn();
+                    if ($(this).attr("rel") == "status-tab"){
+                         $('.tab--tabs').addClass('slide');
+                    }
+                    else{
+                         $('.tab--tabs').removeClass('slide');
+                    }
+               $(".tab--slider li").removeClass("active");
+               $(this).addClass("active");
+          });
 
 
- </script>
+     </script>
+</div>
 {% endblock content %}
