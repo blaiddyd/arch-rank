@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, EqualTo, ValidationError, Length
 from wtforms.fields.html5 import EmailField
 from app.models import Citizen
 
-offenses = [('-1000', 'Speaking Ill of the Supreme Commander'), ('-100', 'Insulting a Fellow Citizen'), ('-3000', 'Not Celebrating *Important Holiday*')]
+offenses = [('-1000', 'Speaking Ill of the Supreme Commander'),('-2000', 'Being such a bad citizen that the world hates you also you were adopted'), ('-100', 'Insulting a Fellow Citizen'), ('-3000', 'Not Celebrating *Important Holiday*')]
 activities = [('2000', 'Graduating from Divine Academy'), ('3000', 'Praising the Supreme Commander'), ('100', 'Contributing to the Community')]
 
 class Login(FlaskForm):
