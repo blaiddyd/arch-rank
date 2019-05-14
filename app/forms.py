@@ -29,11 +29,11 @@ class CitizenReport(FlaskForm):
     traitor = StringField("The Traitor's Citizen ID", validators=[DataRequired(), Length(min=4, max=8)])
     category = SelectField('Type of Treason', choices=offenses, validators=[DataRequired()])
     body = TextAreaField('More about your report')
-    submit = SubmitField('Lodge Your Report')
+    report_submit = SubmitField('Lodge Your Report')
 
 class CitizenStatus(FlaskForm):
     status = TextAreaField("What's on your mind?")
     status_category = SelectField('Type of Activity', choices=activities, validators=[DataRequired()])
-    submit = SubmitField('Submit Status')
+    status_submit = SubmitField('Submit Status')
 
 
