@@ -2,217 +2,126 @@
 
 {% block content %}
 <div class="feedbox">
-<style>
-     #feed {
-          max-width: 2000px;
-     }
-     .container {
-          width: 100%;
-          margin: 3rem auto;
-          display: flex;
-          justify-content: start;
-          align-content: start;
-          align-items: start;
-          flex-direction: column;
-     }
-     
-     .tab--slider {
-          width: 100%;
-          float: left;
-          margin-bottom: 20px;
-     }
-     
-     .tab--tabs {
-          display: block;
-          float: left;
-          margin: 0;
-          padding: 0;
-          list-style: none;
-          position: relative;
-          border-radius: 20px;
-          overflow: hidden;
-          background: white;
-          height: 35px;
-          user-select: none;
-      }
-
-      .tab--tabs::after {
-          content: "";
-          width: 50%;
-          background: #4e79a8;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          transition: all 250ms ease-in-out;
-          border-radius: 20px;
-      }
-
-      .tab--tabs.slide::after {
-          left: 50%;
-      }
-
-      .tab-slider--trigger {
-          font-size: 12px;
-          line-height: 1;
-          font-weight: bold;
-          color: black;
-          text-transform: uppercase;
-          text-align: center;
-          padding: 11px 20px;
-          position: relative;
-          z-index: 2;
-          cursor: pointer;
-          display: inline-block;
-          transition: color 250ms ease-in-out;
-          user-select: none;
-      }
-
-      .tab-slider--trigger:active {
-          color: white;
-      }
-
-      .tab--body {
-           width: 100%;
-          margin-bottom: 20px;
-          padding: 25px;
-      }
-
-      .form-body {
-          width: 100%;
-          margin-block-end: 20px;
-      }
-
-      .form-body textarea {
-           width: 100%;
-           border: none;
-           border-bottom: 2px solid #959595;
-      }
-
-      .form-actions {
-          width: 100%;
-          display: flex;
-          justify-content: start;
-          align-items: start;
-          align-content: start;
-          flex-direction: column;
-      }
-
-      .form-actions--container {
-          width: 100%;
-          margin-bottom: 20px;
-      }
-
-      .form-actions--container input {
-           width: 25%;
-           margin-right: 5px;
-      }
-
-      .form-actions--container select {
-           width: 70%;
-      }
-
-      .form-button {
-           float: right;
-      }
-
-
-</style>
-<div class="feedbox">
-     <div id="feed">
-          <p>Feed</p>
-          <a href="{{ url_for('logout')}}">Logout</a>
-          <div class="container">
-               <div class="tab--slider">
-                    <ul class="tab--tabs">
-                         <li class="tab-slider--trigger active" rel="report-tab">
-                              Report
-                         </li>
-                         <li class="tab-slider--trigger" rel="status-tab">
-                              Status
-                         </li>
-                    </ul>
-               </div>
-               <div class="tab--container">
-                    <div id="report-tab" class="tab--body">
-                         <form method="post">
-                              {{ form.hidden_tag() }}
-                              <div class="form-body">
-                                   {{ form.body(size=140) }} 
-                              </div>
-                              <div class="form-actions">
-                                   <div class="form-actions--container">
-                                        {{ form.traitor(size=8) }}
-                                        {{ form.category }}
-                                   </div>
-                                   <div class="form-button">
-                                        {{ form.report_submit() }}
-                                   </div>
-                              </div>
-                         </form>
-                    </div>
-
-                    <div id="status-tab" class="tab--body">
-                         <form method="post">
-                              {{ status_input.hidden_tag() }}
-                              <div class="form-body">
-                                   {{ status_input.status(size=140) }}
-                              </div>
-                              <div class="form-actions">
-                                   <div class="form-actions--container">
-                                        {{ status_input.status_category }}
-                                   </div>
-                                   <div class="form-button">
-                                        {{ status_input.status_submit() }}
-                                   </div>
-                              </div>
-                         </form>
-                    </div>
-               </div>
+     <p>Feed</p>
+     <a href="{{ url_for('logout')}}">Logout</a>
+     <div class="container-fluid">
+          <div id="formtabs" class="tab--slider">
+               <ul id="formsections" class="tab--tabs">
+                    <li class="tab-slider--trigger active" rel="report-tab">
+                         Report
+                    </li>
+                    <li class="tab-slider--trigger" rel="status-tab">
+                         Status
+                    </li>
+               </ul>
           </div>
-          <div>
-               <h3>Recent Reports</h3>
-               {% for report in reports %}
-                    {{ report.reporter_id }}
-                    {{ report.reported_id }}
-                    {{ report.report_category }}
-                    {{ report.time }}
-                    {{ report.body }}
-               {% endfor %}
-          </div>
+          <div class="tab--container">
+               <div id="report-tab" class="tab--body">
+                    <form method="post">
+                         {{ form.hidden_tag() }}
+                         <div class="form-body">
+                              {{ form.body(size=140) }} 
+                         </div>
+                         <div class="form-actions">
+                              <div class="form-actions--container">
+                                   {{ form.traitor(size=8) }}
+                                   {{ form.category }}
+                              </div>
+                              <div class="form-button">
+                                   {{ form.report_submit() }}
+                              </div>
+                         </div>
+                    </form>
+               </div>
 
-          <div>
-               <h3>Recent Status</h3>
-               {% for status in statuses %}
-                    {{ status.citizen_id }}
-                    {{ status.body }}
-                    {{ status.timestamp }}
-                    {{ status.status_category }}
-               {% endfor %}
-
+               <div id="status-tab" class="tab--body">
+                    <form method="post">
+                         {{ status_input.hidden_tag() }}
+                         <div class="form-body">
+                              {{ status_input.status(size=140) }}
+                         </div>
+                         <div class="form-actions">
+                              <div class="form-actions--container">
+                                   {{ status_input.status_category }}
+                              </div>
+                              <div class="form-button">
+                                   {{ status_input.status_submit() }}
+                              </div>
+                         </div>
+                    </form>
+               </div>
           </div>
      </div>
+     <div class="container-fluid">
+          <div id="mainfeed" class="tab--slider">
+               <ul id="main-tabs" class="tab--tabs">
+                    <li class="tab-slider--trigger active" rel="recent-reports">
+                         Recent Report
+                    </li>
+                    <li class="tab-slider--trigger" rel="recent-stats">
+                         Recent Status
+                    </li>
+               </ul>
+          </div>
+          <div class="tab--container">
+               <div id="recent-reports" class="tab--body">
+                    {% for report in reports %}
+                         {{ report.reporter_id }}
+                         {{ report.reported_id }}
+                         {{ report.report_category }}
+                         {{ report.time }}
+                         {{ report.body }}
+                    {% endfor %}
+               </div>
+               <div id="recent-stats" class="tab--body">
+                    {% for status in statuses %}
+                         {{ status.citizen_id }}
+                         {{ status.body }}
+                         {{ status.timestamp }}
+                         {{ status.status_category }}
+                    {% endfor %}
+               </div>
+          </div>
+     </div>
+    
 </div>
 <script>
     $("document").ready(function(){
            $(".tab--body").hide();
            $(".tab--body:first").show();
+           $("#recent-stats").show();
+           $("#recent-reports").hide();
+
       });
 
-      $(".tab--slider li").click(function() {
-           $(".tab--body").hide();
+      $("#formtabs li").click(function() {
+           $("#report-tab").hide();
+           $("#status-tab").hide();
            var activeTab = $(this).attr("rel");
            $("#" + activeTab).fadeIn();
                 if ($(this).attr("rel") == "status-tab"){
-                     $('.tab--tabs').addClass('slide');
+                     $('#formsections').addClass('slide');
                 }
                 else{
-                     $('.tab--tabs').removeClass('slide');
+                     $('formsections').removeClass('slide');
                 }
-           $(".tab--slider li").removeClass("active");
+           $("#formtabs li").removeClass("active");
            $(this).addClass("active");
       });
 
-
+      $("#mainfeed li").click(function() {
+           $("#recent-reports").hide();
+           $("#recent-stats").hide();
+           var activeTab = $(this).attr("rel");
+           $("#" + activeTab).fadeIn();
+                if ($(this).attr("rel") == "recent-stats"){
+                     $('#main-tabs"').addClass('slide');
+                }
+                else{
+                     $("#main-tabs").removeClass('slide');
+                }
+           $("#mainfeed li").removeClass("active");
+           $(this).addClass("active");
+      });
  </script>
 {% endblock content %}
