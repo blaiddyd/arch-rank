@@ -8,3 +8,135 @@
     padding: 10px;
 }
 
+.container-fluid {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-content: start;
+    align-items: start;
+    flex-direction: column;
+}
+
+.tab--slider {
+    width: 100%;
+    float: left;
+    margin-bottom: 20px;
+}
+
+.tab--container {
+    width: 100%;
+}
+
+.tab--tabs {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    height: 35px;
+    user-select: none;
+}
+
+.tab--tabs::after {
+    content: "";
+    width: 50%;
+    background: #4e79a8;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 250ms ease-in-out;
+    border-radius: 20px;
+}
+
+.tab--tabs.slide::after {
+    left: 50%;
+}
+
+.tab-slider--trigger {
+    font-size: 12px;
+    line-height: 1;
+    font-weight: bold;
+    color: black;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 11px 20px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 250ms ease-in-out;
+    user-select: none;
+}
+
+.tab-slider--trigger:active {
+    color: white;
+}
+
+.tab--body {
+     width: 100%;
+    margin-bottom: 20px;
+    padding: 25px;
+}
+
+.form-body {
+    width: 100%;
+    margin-block-end: 20px;
+}
+
+.form-body textarea {
+     width: 100%;
+     border: none;
+     border-bottom: 2px solid #4e79a8;
+}
+
+.form-actions {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    align-content: start;
+    flex-direction: column;
+}
+
+.form-actions--container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-actions--container input {
+     margin-right: 5px;
+     border: none;
+     border-bottom: #4e79a8 2px solid;
+}
+
+.form-button {
+     float: right;
+}
+
+select {
+    border: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -mox-appearance: none;
+    border-bottom: #4e79a8 2px solid;
+    color: black;
+    transition: all .4 ease-in-out;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+select option {
+    border: 0;
+    border-bottom: 1px solid #4e79a8;
+    padding: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
