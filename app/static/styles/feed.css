@@ -1,0 +1,10 @@
+.page {
+    display: grid;
+    grid-template-columns: 20vw auto;
+}
+
+.feedbox {
+    grid-column-start: 2;
+    padding: 10px;
+}
+

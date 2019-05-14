@@ -13,6 +13,8 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/main.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/sidebar.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/feed.css') }}">
+
     </head>
 
     <body>
@@ -24,9 +26,7 @@
                     <li class="nav-item">test2</li>
                 </ul>
             </div>
-            <div class="feedbox">
-                {% block content %} {% endblock content %}
-            </div>
+             {% block content %} {% endblock content %}
         </div>
     </body>
 </html>
