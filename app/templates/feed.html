@@ -56,75 +56,119 @@
                </div>
           </div>
      </div>
+     <hr>
      <div class="container-fluid">
-          <div id="mainfeed" class="tab--slider">
-               <ul id="main-tabs" class="tab--tabs">
-                    <li class="tab-slider--trigger active" rel="recent-reports">
-                         Recent Report
+          <div id="mainfeed" class="tab--slider2">
+               <ul id="main-tabs" class="tab--tabs2">
+                    <li class="tab-slider--trigger2 active2" rel="recent-reports">
+                         Recent Reports
                     </li>
-                    <li class="tab-slider--trigger" rel="recent-stats">
-                         Recent Status
+                    <li class="tab-slider--trigger2" rel="recent-stats">
+                         Recent Statuses
                     </li>
                </ul>
           </div>
-          <div class="tab--container">
-               <div id="recent-reports" class="tab--body">
+          <div class="tab--container2">
+               <div id="recent-reports" class="tab--body2">
                     {% for report in reports %}
-                         {{ report.reporter_id }}
-                         {{ report.reported_id }}
-                         {{ report.report_category }}
-                         {{ report.time }}
-                         {{ report.body }}
+                         <div class="feed-post container-fluid">
+                              <div class="poster">
+                                   <span>{{ report.time }}</span>
+                                   
+                                   <span>Citizen <a href="{{ url_for('profile', citizen_id=report.reporter_id) }}">{{ report.reporter_id }}</a></span>
+                              </div>
+                              <div class="post-main">
+                                   <div class="post-chip">
+                                        <a href="{{ url_for('profile', citizen_id=report.reported_id) }}">{{ report.reported_id }}</a> committed 
+                                        {{ report.report_category }}
+                                   </div>
+                                   <div class="post-body">
+                                        {{ report.body }}
+                                   </div>
+                              </div>
+                         </div>
                     {% endfor %}
+                    <div class="paginate">
+                         {% if prev_reports %}
+                              <a href="{{ prev_reports }}">Latest</a>
+                         {% endif %}
+
+                         {% if next_reports %}
+                              <a href="{{ next_reports }}">Oldest</a>
+                         {% endif %}
+                    </div>
                </div>
-               <div id="recent-stats" class="tab--body">
+               <div id="recent-stats" class="tab--body2">
                     {% for status in statuses %}
-                         {{ status.citizen_id }}
-                         {{ status.body }}
-                         {{ status.timestamp }}
-                         {{ status.status_category }}
+                         <div class="feed-post">
+                              <div class="poster">
+                                   <span>{{ status.timestamp }}</span>
+                                   <span>Citizen <a href="{{ url_for('profile', citizen_id=status.citizen_id) }}">{{ status.citizen_id }}</a></span>
+                              </div>
+                              <div class="post-main">
+                                   <div class="post-chip">
+                                        {{ status.status_category }}
+                                   </div>
+                                   <div class="post-body">
+                                        {{ status.body }}
+                                   </div>
+                              </div>
+                         </div>
                     {% endfor %}
+                    <div class="paginate">
+                         {% if prev_status %}
+                              <div class="latest">
+                                   <a href="{{ prev_status }}">Latest</a>
+                              </div>
+                         {% endif %}
+
+                         
+                         {% if next_status %}
+                              <div class="oldest">
+                                   <a href="{{ next_status }}">Oldest</a>
+                              </div>
+                         {% endif %}
+                    </div>
                </div>
           </div>
      </div>
     
 </div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
     $("document").ready(function(){
            $(".tab--body").hide();
            $(".tab--body:first").show();
-           $("#recent-stats").show();
-           $("#recent-reports").hide();
+           $(".tab--body2").hide();
+           $(".tab--body2:first").show();
 
       });
 
-      $("#formtabs li").click(function() {
-           $("#report-tab").hide();
-           $("#status-tab").hide();
+      $(".tab--slider li").click(function() {
+           $(".tab--body").hide();
            var activeTab = $(this).attr("rel");
            $("#" + activeTab).fadeIn();
                 if ($(this).attr("rel") == "status-tab"){
-                     $('#formsections').addClass('slide');
+                     $('.tab--tabs').addClass('slide');
                 }
                 else{
-                     $('formsections').removeClass('slide');
+                     $('.tab--tabs').removeClass('slide');
                 }
-           $("#formtabs li").removeClass("active");
+           $(".tab--slider li").removeClass("active");
            $(this).addClass("active");
       });
 
-      $("#mainfeed li").click(function() {
-           $("#recent-reports").hide();
-           $("#recent-stats").hide();
+      $(".tab--slider2 li").click(function() {
+           $(".tab--body2").hide();
            var activeTab = $(this).attr("rel");
            $("#" + activeTab).fadeIn();
-                if ($(this).attr("rel") == "recent-stats"){
-                     $('#main-tabs"').addClass('slide');
+                if ($(this).attr("rel") == "recent-status"){
+                     $('.tab--tabs2').addClass('slide2');
                 }
                 else{
-                     $("#main-tabs").removeClass('slide');
+                     $('.tab--tabs2').removeClass('slide2');
                 }
-           $("#mainfeed li").removeClass("active");
+           $(".tab--slider2 li").removeClass("active");
            $(this).addClass("active");
       });
  </script>

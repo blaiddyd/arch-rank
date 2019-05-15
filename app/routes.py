@@ -53,7 +53,8 @@ def register():
 def feed():
     invalid_citizen = False
     submit_error = False
-    page = request.args.get('page', 1, type=int)
+    status_page = request.args.get('status', 1, type=int)
+    reports_page = request.args.get('reports', 1, type=int)
     form = CitizenReport(reporter=current_user.citizen_id)
     status_input = CitizenStatus()
     if form.validate_on_submit():
@@ -88,9 +89,18 @@ def feed():
     else:
         print('Status form validation error')
         print(status_input.errors)
-    reports = Report.query.order_by(Report.time.desc()).paginate(page, 20, False)
-    all_status = Status.query.order_by(Status.timestamp.desc()).paginate(page, 20, False)
-    return render_template('feed.html', title='Feed', form=form, reports=reports.items, status_input=status_input, statuses=all_status.items)
+    reports = Report.query.order_by(Report.time.desc()).paginate(reports_page, 5, False)
+    next_reports = url_for('feed', reports=reports.next_num) \
+        if reports.has_next else None
+    prev_reports = url_for('feed', reports=reports.prev_num) \
+        if reports.has_prev else None
+    all_status = Status.query.order_by(Status.timestamp.desc()).paginate(status_page, 5, False)
+    next_statuses = url_for('feed', status=all_status.next_num) \
+        if all_status.has_next else None
+    prev_statuses = url_for('feed', status=all_status.prev_num) \
+        if all_status.prev else None
+    return render_template('feed.html', title='Feed', form=form, reports=reports.items, status_input=status_input, 
+        statuses=all_status.items, next_reports=next_reports, prev_reports=prev_reports, next_status=next_statuses, prev_status=prev_statuses)
 
 @app.route('/profile')
 @login_required
