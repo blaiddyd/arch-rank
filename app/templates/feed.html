@@ -1,5 +1,9 @@
 {% extends "sidebar-base.html" %}
 
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/feed.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="feedbox">
      <p>Feed</p>
