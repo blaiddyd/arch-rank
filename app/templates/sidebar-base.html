@@ -7,11 +7,11 @@
 {% block body %}
     <div class="grid-container">
         <div class="menu-icon">
-            <i id="menu-open-icon" class="material-icons md-32">menu</i>
+                <img id="menu-open-icon" class="icon" src="{{ url_for('static', filename='assets/menuicon.svg') }}">
         </div>
         <aside class="sidenav">
             <div class="sidenav-close-icon">
-                    <i id="menu-close-icon" class="material-icons md-32">close</i>
+                    <img id="menu-close-icon" class="icon" src="{{ url_for('static', filename='assets/closeicon.svg') }}">
             </div>
         <ul class="sidenav-list ">
             <img id="nav-logo" src="{{ url_for('static', filename='assets/logotext.svg') }}" alt="Arch">
@@ -19,16 +19,12 @@
                 <img id="rank-icon" class="icon" src="{{ url_for('static', filename='assets/rankicon.svg') }}">
                 <p>Rank</p>
             </a></li>
-            <li><a class="nav-item" href="{{ url_for('rank') }}">
-                <i id="profile-icon" class="icon material-icons md-32">person</i>
+            <li><a class="nav-item" href="{{ url_for('profile_home') }}">
+                <img id="profile-icon" class="icon" src="{{ url_for('static', filename='assets/profileicon.svg') }}">
                 <p>Profile</p>
             </a></li>
-            <li><a class="nav-item" href="{{ url_for('rank') }}">
-                <i id="profile-icon" class="icon material-icons md-32">record_voice_over</i>
-                <p>Status</p>
-            </a></li>
-            <li><a class="nav-item" href="{{ url_for('rank') }}">
-                <img id="feed-icon" class="icon" src="{{ url_for('static', filename='assets/rankicon.svg') }}">
+            <li><a class="nav-item" href="{{ url_for('feed') }}">
+                <img id="feed-icon" class="icon" src="{{ url_for('static', filename='assets/feedicon.svg') }}">
                 <p>Feed</p>
             </a></li>
         </aside>
