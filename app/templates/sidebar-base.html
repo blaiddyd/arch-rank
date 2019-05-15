@@ -7,26 +7,31 @@
 {% block body %}
     <div class="grid-container">
         <div class="menu-icon">
-                <img id="menu-open-icon" class="icon" src="{{ url_for('static', filename='assets/menuicon.svg') }}">
+                <img id="menu-open-icon" class="drawer-icon icon" src="{{ url_for('static', filename='assets/menuicon.svg') }}">
         </div>
         <aside class="sidenav">
             <div class="sidenav-close-icon">
-                    <img id="menu-close-icon" class="icon" src="{{ url_for('static', filename='assets/closeicon.svg') }}">
+                    <img id="menu-close-icon" class="drawer-icon icon" src="{{ url_for('static', filename='assets/closeicon.svg') }}">
             </div>
         <ul class="sidenav-list ">
             <img id="nav-logo" src="{{ url_for('static', filename='assets/logotext.svg') }}" alt="Arch">
-            <li><a class="nav-item" href="{{ url_for('rank') }}">
-                <img id="rank-icon" class="icon" src="{{ url_for('static', filename='assets/rankicon.svg') }}">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('rank') }}">
+                <img id="rank-icon" class="nav-icon icon" src="{{ url_for('static', filename='assets/rankicon.svg') }}">
                 <p>Rank</p>
             </a></li>
-            <li><a class="nav-item" href="{{ url_for('profile_home') }}">
-                <img id="profile-icon" class="icon" src="{{ url_for('static', filename='assets/profileicon.svg') }}">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('profile_home') }}">
+                <img id="profile-icon" class="nav-icon icon" src="{{ url_for('static', filename='assets/profileicon.svg') }}">
                 <p>Profile</p>
             </a></li>
-            <li><a class="nav-item" href="{{ url_for('feed') }}">
-                <img id="feed-icon" class="icon" src="{{ url_for('static', filename='assets/feedicon.svg') }}">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('feed') }}">
+                <img id="feed-icon" class="nav-icon icon" src="{{ url_for('static', filename='assets/feedicon.svg') }}">
                 <p>Feed</p>
             </a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">
+                    <img id="about-icon" class="nav-icon icon" src="{{ url_for('static', filename='assets/infoicon.svg') }}">
+                    <p>About</p>
+                </a></li>
+        </ul>
         </aside>
         <div class="main">
             {% block content %} {% endblock content %}
@@ -41,19 +46,22 @@
         function toggleClassName(el, className) {
         if (el.hasClass(className)) {
             el.removeClass(className);
+            $(".main").css("overflow-y", "auto");
         } else {
             el.addClass(className);
+            $(".main").css("overflow-y", "hidden");
         }
         }
 
         // Open the side nav on click
         menuIconEl.on('click', function() {
         toggleClassName(sidenavEl, 'active');
+        
         });
 
         // Close the side nav on click
         sidenavCloseEl.on('click', function() {
-        toggleClassName(sidenavEl, 'active');
+            toggleClassName(sidenavEl, 'active');
         });
     </script>
 {% endblock %}

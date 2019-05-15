@@ -11,6 +11,8 @@
 .main {
     padding: 10px;
     grid-area: main;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 
@@ -51,14 +53,12 @@
     top: 8px;
     right: 12px;
     cursor: pointer;
-    font-size: 20px;
-    color: #4e79a8;
 }
 
-#nav-logo {
-    width: 40%;
-    margin: 20%;
+.drawer-icon {
+    width: 30px;
 }
+
 .sidenav-list {
     padding: 0;
     list-style: none;
@@ -87,15 +87,36 @@
     }
 }
 
+.sidenav ul {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#nav-logo {
+    width: 90px;
+    margin-bottom: 5vh;
+    margin-top: 8vh;
+}
+
+
 .nav-item {
+    width: 70%;
+    margin-bottom: 15px;
+} 
+
+.nav-link {
+    display: flex;
+    justify-content: center;
     margin: 0;
     color: #4e79a8;
 }
 
-.nav-item p {
-    margin: 0;
+.nav-icon {
+    width: calc(10% + 20px);
+    float: left;
 }
-
-.icon {
-    width: 10%;
+.nav-link p {
+    margin: 15px;
 }
