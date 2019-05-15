@@ -8,10 +8,22 @@
     <div class="page">
         <div class="nav">
             <img id="nav-logo" src="{{ url_for('static', filename='assets/logotext.svg') }}" alt="Arch">
-            <ul id="nav-list">
-                <li class="nav-item">test</li>
-                <li class="nav-item">test2</li>
-            </ul>
+            <a class="nav-item" href="{{ url_for('rank') }}">
+                <img id="rank-icon" src="{{ url_for('static', filename='assets/rankicon.svg') }}">
+                <p>Rank</p>
+            </a>
+            <a class="nav-item" href="{{ url_for('rank') }}">
+                <img id="" src="{{ url_for('static', filename='assets/rankicon.svg') }}">
+                <p>Profile</p>
+            </a>
+            <a class="nav-item" href="{{ url_for('rank') }}">
+                <img id="nav-logo" src="{{ url_for('static', filename='assets/rankicon.svg') }}">
+                <p>Status</p>
+            </a>
+            <a class="nav-item" href="{{ url_for('rank') }}">
+                <img id="nav-logo" src="{{ url_for('static', filename='assets/rankicon.svg') }}">
+                <p>Feed</p>
+            </a>
         </div>
             {% block content %} {% endblock content %}
     </div>
