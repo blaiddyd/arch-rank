@@ -13,7 +13,7 @@ login = LoginManager(app)
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-from app import routes, models
+from app import routes
 
 @app.route('/')
 def test():
