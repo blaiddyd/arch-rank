@@ -92,6 +92,12 @@ def feed():
     all_status = Status.query.order_by(Status.timestamp.desc()).paginate(page, 20, False)
     return render_template('feed.html', title='Feed', form=form, reports=reports.items, status_input=status_input, statuses=all_status.items)
 
+@app.route('/profile')
+@login_required
+def profile_home():
+    user_id = current_user.citizen_id;
+    return redirect(url_for('profile', citizen_id=user_id))
+
 @app.route('/profile/<citizen_id>')
 @login_required
 def profile(citizen_id):
