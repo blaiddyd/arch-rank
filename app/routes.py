@@ -108,6 +108,12 @@ def profile_home():
     user_id = current_user.citizen_id;
     return redirect(url_for('profile', citizen_id=user_id))
 
+@app.route('/profile')
+@login_required
+def profile_home():
+    user_id = current_user.citizen_id;
+    return redirect(url_for('profile', citizen_id=user_id))
+
 @app.route('/profile/<citizen_id>')
 @login_required
 def profile(citizen_id):
