@@ -1,18 +1,19 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 999.7 504.01">
-    <defs>
-        <style>.cls-1{fill:#0071bc;}</style>
-    </defs>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+    <style>.cls-1{fill:#4e79a8;}</style>
     <title>RankIcon</title>
-    <g id="Middle">
-        <circle class="cls-1" cx="500.93" cy="125.22" r="125.22"/>
-        <path class="cls-1" d="M247.94,751.23l505-1s-1.18-75.43-3.07-79.73c-64.73-147.25-443.78-140.64-501.89,4.09C246.43,678.31,247.94,751.23,247.94,751.23Z" transform="translate(0 -248.31)"/>
-    </g>
-    <g id="Left">
-        <circle class="cls-1" cx="189.99" cy="470.92" r="93.41" transform="translate(-277.34 23.96) rotate(-45)"/>
-        <path class="cls-1" d="M222.09,668.48c7.48-18.63,19.79-35.18,35.81-49.64-100.17-20.15-229,6.13-257.35,76-1.13,2.79-.18,57.19-.18,57.19l221.71.26C221.92,744.61,220.52,672.39,222.09,668.48Z" transform="translate(0 -248.31)"/>
-    </g>
-    <g id="Right">
-        <circle class="cls-1" cx="811.73" cy="219.49" r="93.41"/>
-        <path class="cls-1" d="M775.43,664c1.86,4.23,3.1,71.09,3.34,85.26l220.93-.44s-.88-56.27-2.29-59.48c-31-70.44-158.37-93.68-257.22-72.81C755.51,630.29,767.57,646.1,775.43,664Z" transform="translate(0 -248.31)"/>
+    <path fill="none" d="M0 0h1000v1000H0V0z"/>
+    <g id="icons" transform="translate(0 200)">
+        <g id="Middle">
+            <circle class="cls-1" cx="500.93" cy="125.22" r="125.22"/>
+            <path class="cls-1" d="M247.94,751.23l505-1s-1.18-75.43-3.07-79.73c-64.73-147.25-443.78-140.64-501.89,4.09C246.43,678.31,247.94,751.23,247.94,751.23Z" transform="translate(0 -248.31)"/>
+        </g>
+        <g id="Left">
+            <circle class="cls-1" cx="189.99" cy="470.92" r="93.41" transform="translate(-277.34 23.96) rotate(-45)"/>
+            <path class="cls-1" d="M222.09,668.48c7.48-18.63,19.79-35.18,35.81-49.64-100.17-20.15-229,6.13-257.35,76-1.13,2.79-.18,57.19-.18,57.19l221.71.26C221.92,744.61,220.52,672.39,222.09,668.48Z" transform="translate(0 -248.31)"/>
+        </g>
+        <g id="Right">
+            <circle class="cls-1" cx="811.73" cy="219.49" r="93.41"/>
+            <path class="cls-1" d="M775.43,664c1.86,4.23,3.1,71.09,3.34,85.26l220.93-.44s-.88-56.27-2.29-59.48c-31-70.44-158.37-93.68-257.22-72.81C755.51,630.29,767.57,646.1,775.43,664Z" transform="translate(0 -248.31)"/>
+        </g>
     </g>
 </svg>
