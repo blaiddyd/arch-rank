@@ -15,9 +15,5 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 from app import routes
 
-@app.route('/')
-def test():
-    return 'Pls work'
-
 if __name__ == '__main__':
     app.run()
