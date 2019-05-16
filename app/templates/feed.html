@@ -5,17 +5,17 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="feedbox">
-     <p>Feed</p>
      <a href="{{ url_for('logout')}}">Logout</a>
      <div class="container-fluid">
           <div id="formtabs" class="tab--slider">
                <ul id="formsections" class="tab--tabs">
                     <li class="tab-slider--trigger active" rel="report-tab">
-                         Report
+                         Post a Report
                     </li>
                     <li class="tab-slider--trigger" rel="status-tab">
-                         Status
+                         Post a Status
                     </li>
                </ul>
           </div>
@@ -23,17 +23,17 @@
                <div id="report-tab" class="tab--body">
                     <form method="post">
                          {{ form.hidden_tag() }}
-                         <div class="form-body">
-                              {{ form.body(size=140) }} 
-                         </div>
                          <div class="form-actions">
                               <div class="form-actions--container">
                                    {{ form.traitor(size=8) }}
                                    {{ form.category }}
                               </div>
-                              <div class="form-button">
-                                   {{ form.report_submit() }}
-                              </div>
+                         </div>
+                         <div class="form-body">
+                              {{ form.body(size=140) }} 
+                         </div>
+                         <div class="form-button">
+                              {{ form.report_submit() }}
                          </div>
                     </form>
                </div>
@@ -41,30 +41,31 @@
                <div id="status-tab" class="tab--body">
                     <form method="post">
                          {{ status_input.hidden_tag() }}
-                         <div class="form-body">
-                              {{ status_input.status(size=140) }}
-                         </div>
                          <div class="form-actions">
                               <div class="form-actions--container">
                                    {{ status_input.status_category }}
                               </div>
-                              <div class="form-button">
-                                   {{ status_input.status_submit() }}
-                              </div>
+                         </div>
+                         <div class="form-body">
+                              {{ status_input.status(size=140) }}
+                         </div>
+                         <div class="form-button">
+                              {{ status_input.status_submit() }}
                          </div>
                     </form>
                </div>
           </div>
      </div>
-     <hr>
+     <br>
+     <br>
      <div class="container-fluid">
           <div id="mainfeed" class="tab--slider2">
                <ul id="main-tabs" class="tab--tabs2">
                     <li class="tab-slider--trigger2 active2" rel="recent-reports">
-                         Recent Reports
+                         Reports Feed
                     </li>
                     <li class="tab-slider--trigger2" rel="recent-stats">
-                         Recent Statuses
+                         Status Feed
                     </li>
                </ul>
           </div>
