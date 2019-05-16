@@ -30,8 +30,21 @@
             <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">
                     <img id="about-icon" class="nav-icon icon" src="{{ url_for('static', filename='assets/infoicon.svg') }}">
                     <p>About</p>
-                </a></li>
-        </ul>
+            </a></li>
+            <li class="nav-item nav-log">
+            {% if current_user.is_anonymous %}
+                <a class="nav-link" href="{{ url_for('login') }}">
+                    <img id="login-icon" class="nav-icon icon" src="{{ url_for('static', filename='assets/loginicon.svg') }}">
+                    <p>Login</p>
+                </a>
+            {% else %}
+            <a class="nav-link" href="{{ url_for('logout') }}">
+                <img id="logout-icon" class="nav-icon icon" src="{{ url_for('static', filename='assets/logouticon.svg') }}">
+                <p>logout</p>
+            </a>
+            {% endif %}
+            </li>
+            </ul>
         </aside>
         <div class="main">
             {% block content %} {% endblock content %}

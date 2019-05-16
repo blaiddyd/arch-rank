@@ -119,4 +119,10 @@
 }
 .nav-link p {
     margin: 15px;
+    font-weight: lighter;
+}
+
+.nav-log {
+    margin-top: auto;
+    margin-bottom: 0;
 }
