@@ -143,6 +143,7 @@ def login():
     return render_template('login.html', form=form, links=get_links(), title="Login")
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
