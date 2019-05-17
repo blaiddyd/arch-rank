@@ -1,0 +1,22 @@
+{% extends "login-base.html" %}
+
+{% block content %}
+        <form class="form" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <div class="input_field row">
+                <i class="material-icons-outlined md-32 col-sm-2 d-none d-sm-block">person</i>
+                {{ form.citizen_id(class_="col-sm-10", size=8) }}
+            </div>
+            <div class="input_field row">
+                <i class="material-icons-outlined md-32 col-sm-2 d-none d-sm-block">lock</i>
+                {{ form.password(class_="col-sm-10", size=32) }}
+            </div>
+                {{ form.submit() }}
+        </form>
+        <a id="login" href="{{ url_for('register')}}">Create an account</a>
+    <script>
+        $(document).ready(function() {
+            $('#submit').addClass('btn btn-primary');
+        });
+    </script>
+{% endblock %}
