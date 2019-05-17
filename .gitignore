@@ -16,3 +16,5 @@ build/
 .vscode
 
 *.log
+
+app.db
