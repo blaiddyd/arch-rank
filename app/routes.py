@@ -43,10 +43,11 @@ def register():
             citizen.set_password(form.password.data)
             db.session.add(citizen)
             db.session.commit()
-            return redirect(url_for('login'))
+            login_user(citizen)
+            return redirect(url_for('feed'))
         except Exception as e:
             print('There was an error creating new user.' + str(e))
-    return render_template('signup.html', title='Join Arch', form=form)
+    return render_template('register.html', links=get_links(), title='Register', form=form)
 
 @app.route('/feed', methods=['GET', 'POST'])
 @login_required

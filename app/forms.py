@@ -14,9 +14,9 @@ class Login(FlaskForm):
     submit = SubmitField('Log In')
 
 class SignUp(FlaskForm):
-    citizen_id = StringField('Citizen ID', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirmPass = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    citizen_id = StringField('Citizen ID', render_kw={"placeholder": "Citizen ID"}, validators=[DataRequired()])
+    password = PasswordField('Password', render_kw={"placeholder": "Password"}, validators=[DataRequired()])
+    confirmPass = PasswordField('Confirm Password', render_kw={"placeholder": "Confirm Password"}, validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
     def validate_id(self, citizen_id):
