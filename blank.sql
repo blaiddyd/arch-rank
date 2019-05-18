@@ -10,9 +10,17 @@ BEGIN TRANSACTION;
 CREATE TABLE citizen (
         citizen_id VARCHAR(12) NOT NULL, 
         name VARCHAR(64), 
-        password_hash VARCHAR(128), permission VARCHAR(20), score FLOAT, 
+        password_hash VARCHAR(128), 
+        permission VARCHAR(20), 
+        score FLOAT, 
+        completed_signup INTEGER,
+        profile_image VARCHAR(100),
+        bio VARCHAR(200),
+        fav_leader VARCHAR(30),
+        income INTEGER,
         PRIMARY KEY (citizen_id)
 );
+
 -- CREATE INDEX ix_citizen_name ON citizen (name);
 -- CREATE INDEX ix_citizen_permission ON citizen (permission);
 
@@ -39,5 +47,11 @@ CREATE TABLE status (
         FOREIGN KEY(citizen_id) REFERENCES citizen (citizen_id)
 );
 -- CREATE INDEX ix_status_timestamp ON status (timestamp);
+
+CREATE TABLE image (
+        image_id INTEGER, 
+        image_url VARCHAR(100),
+        PRIMARY KEY (image_id)
+);
 
 COMMIT;
