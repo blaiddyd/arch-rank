@@ -48,7 +48,10 @@ def register():
             citizen = Citizen(
                 citizen_id=form.citizen_id.data,
                 name=form.citizen_id.data,
-                score=0
+                score=0,
+                profile_image=url_for(
+                    'static', filename='assets/blank_profile.png'
+                )
             )
             citizen.set_password(form.password.data)
             db.session.add(citizen)
