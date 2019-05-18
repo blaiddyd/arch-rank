@@ -1,7 +1,21 @@
 {% extends "sidebar-base.html" %}
 
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/profile.css') }}">
+{% endblock %}
+
 {% block content %}
-     <p>Profile page</p>
-     <img src="{{ citizen.profile_image }}">
-     
+     <div class="profilebox">
+          <p>Profile page</p>
+          <img id="profile_pic" src="{{ citizen.profile_image }}">
+          <!-- <button onclick="request_random_img()">Random</button> -->
+     </div>
+     <script>
+
+          function request_random_img() {
+               var xhttp = new XMLHttpRequest();
+               xhttp.open("GET", "/profile/random_img", true);
+               xhttp.send();
+          }
+     </script>
 {% endblock content %}

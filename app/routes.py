@@ -48,7 +48,7 @@ def register():
             citizen = Citizen(
                 citizen_id=form.citizen_id.data,
                 name=form.citizen_id.data,
-                score=0,
+                score=20000,
                 profile_image=url_for(
                     'static', filename='assets/blank_profile.png'
                 )
@@ -152,14 +152,29 @@ def profile_home():
 @login_required
 def profile(citizen_id):
     citizen = Citizen.query.filter_by(citizen_id=citizen_id).first_or_404()
+    title = citizen.name
+    if citizen_id == current_user.citizen_id:
+        is_user = True
+        title = 'My Profile'
     return render_template(
-        'profile.html', title='My Profile', links=get_links(), citizen=citizen)
+        'profile.html', title=title, links=get_links(), citizen=citizen)
+
+
+@app.route('/profile/random_img')
+@login_required
+def random_profile():
+    citizen = Citizen.query.filter_by(
+        citizen_id=current_user.citizen_id).first_or_404()
+    random_img = random.choice(Image.query.all()).image_url
+    citizen.set_pic(random_img)
+    db.session.commit()
+    return redirect(url_for('profile', citizen_id=current_user.citizen_id))
 
 
 def get_images(num):
     client_id = app.config['IMG_ACCESS']
     orientation = 'squarish'
-    count = num
+    count = nums
     url = 'https://api.unsplash.com/photos/random/?client_id={}&orientation={}&count={}'.format(client_id, orientation, count)  # nopep8
     content = get(url).json()
     for img in content:

@@ -2,7 +2,7 @@ from datetime import datetime
 from app import app, db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from sqlalchemy.sql.expression import func, select
+from sqlalchemy.sql import func
 
 
 class Citizen(db.Model, UserMixin):
@@ -30,10 +30,8 @@ class Citizen(db.Model, UserMixin):
         return (self.citizen_id)
 
     def set_pic(self, url):
-        self.profile_image = url
-
-    def set_rand_pic(self):
-        self.profile_image = Image.query.order_by(func.rand()).first()
+        if url:
+            self.profile_image = url
 
 
 @login.user_loader
@@ -69,4 +67,7 @@ class Image(db.Model):
     image_url = db.Column(db.String(100))
 
     def __repr__(self):
-            return '<Image {}>'.format(self.body)
+        return '<Image {}>'.format(self.body)
+
+    def get_rand(self):
+        return random.choice(self.query.all())
