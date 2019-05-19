@@ -1,0 +1,84 @@
+body {
+    overflow-y: hidden;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: auto 1fr 30px;
+    grid-template-areas: 
+                "header",
+                "main",
+                "footer";
+    height: 100%;
+}
+
+/* Main logo styling */
+.logo {
+    margin-bottom: 8vh;
+    height: calc(20px + 10vh);
+    margin: 20px; 
+    justify-self: center;
+    grid-area: "header"
+}
+
+.logo svg {
+    fill: #4e79a8;
+    width: inherit;
+    height: inherit;
+}
+
+/* Forms */
+.formbox {
+    grid-area: "main";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%
+}
+
+.formbox .row {
+    margin: 2px;
+}
+
+.formbox form {
+    width: 30% + 50px;
+    margin: 0px;
+}
+
+.formbox input {
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #959595;
+    padding: 2px;
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+}
+
+#submit {
+    border: none;
+    background: #4e79a8;
+    padding: 5px;
+    margin-top: 20px;
+    width: 100%;
+    color: #ffffff;
+}
+
+/* Flash styling */
+.errors {
+    display: flex;
+    padding: 0;
+}
+
+.error-flash {
+    list-style: none;
+    font-size: 15px;
+}
+
+.progress {
+    grid-area: "footer"
+    
+}
+
+.progress-bar {
+    background-color: #4e79a8;
+}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/eval.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+            <div class="logo">
+                <svg enable-background="new 0 0 1000 1000" version="1.1" viewBox="0 0 1e3 1e3" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                    <path class="st0" d="m496.5 27.5c93 80 428.88 312.72 439 949l-145-90c-12-467-294-684-294-684s-288 230-294 684l-145 90c0-247 68-676 439-949z"/>
+                </svg>
+            </div>
+            <div class="formbox">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3"></div>
+            </div>
+    </div>
+{% endblock %}
