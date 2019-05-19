@@ -153,11 +153,12 @@ def profile_home():
 def profile(citizen_id):
     citizen = Citizen.query.filter_by(citizen_id=citizen_id).first_or_404()
     title = citizen.name
+    is_self = False
     if citizen_id == current_user.citizen_id:
-        is_user = True
+        is_self = True
         title = 'My Profile'
     return render_template(
-        'profile.html', title=title, links=get_links(), citizen=citizen)
+        'profile.html', title=title, citizen=citizen, is_self=is_self)
 
 
 @app.route('/profile/random_img')
@@ -199,7 +200,8 @@ def rank():
         citizens=citizens.items,
         tops=top_citizens,
         next=next_citizens,
-        prev=prev_citizens)
+        prev=prev_citizens,
+        title="Rank")
 
 
 @app.route('/login',  methods=['GET', 'POST'])
@@ -213,7 +215,7 @@ def login():
         citizen = Citizen.query.filter_by(
             citizen_id=form.citizen_id.data).first()
         if citizen is None or not citizen.check_password(form.password.data):
-            print('Bad login attempt')
+            flash('Incorrect Citizen ID or Password')
             return redirect(url_for('login'))
         login_user(citizen)
         flash('Good login')
