@@ -13,6 +13,15 @@
             </div>
                 {{ form.submit() }}
         </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="errors">
+            {% for message in messages %}
+            <li class="error-flash alert alert-danger">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
         <a id="undertext" href="{{ url_for('register')}}">Create an account</a>
     <script>
         $(document).ready(function() {
