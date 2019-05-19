@@ -15,7 +15,8 @@ login.login_view = 'login'
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-from app import routes
+
+from app import routes  # nopep8
 
 if __name__ == '__main__':
     app.run()

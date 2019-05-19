@@ -8,6 +8,14 @@
     height: 100vh;
 }
 
+.title {
+    grid-area: header;
+    justify-self: center;
+    margin-top: 25px;
+    font-size: 20px;
+    color: #808080;
+}
+
 .main {
     padding: 10px;
     grid-area: main;
