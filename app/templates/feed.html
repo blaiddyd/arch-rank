@@ -116,16 +116,16 @@
                          </div>
                     {% endfor %}
                     <div class="pagination">
-                         {% if prev_status %}
+                         {% if prev_statuses %}
                               <div class="page-link">
-                                   <a href="{{ prev_status }}">Latest</a>
+                                   <a href="{{ prev_statuses }}">Latest</a>
                               </div>
                          {% endif %}
 
                          
-                         {% if next_status %}
+                         {% if next_statuses %}
                               <div class="page-link">
-                                   <a href="{{ next_status }}">Oldest</a>
+                                   <a href="{{ next_statuses }}">Oldest</a>
                               </div>
                          {% endif %}
                     </div>

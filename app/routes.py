@@ -146,8 +146,8 @@ def feed():
         statuses=all_status.items,
         next_reports=next_reports,
         prev_reports=prev_reports,
-        next_status=next_statuses,
-        prev_status=prev_statuses)
+        next_statuses=next_statuses,
+        prev_statuses=prev_statuses)
 
 
 @app.route('/profile')
