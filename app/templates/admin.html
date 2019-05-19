@@ -1,0 +1,71 @@
+{% extends "sidebar-base.html" %}
+{% block style%}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/admin.css') }}">
+{% endblock%}
+
+{% block content %}
+    <h3>Citizens</h3>
+    <ul class="list-group">
+        {% for citizen in citizens %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><span class="rank">{{ loop.index }}</span> 
+                {% if citizen.permission == 'admin' %}
+                    <span class="perm">Admin</span>
+                {% else %}
+                    <span class="perm">Citizen</span>
+                {% endif %}
+                <a href="{{ url_for('profile', citizen_id=citizen.citizen_id) }}">{{ citizen.citizen_id }}</a>: 
+                    <span class="badge badge-pill">{{ citizen.score }}</span>
+                </span>
+                <div class="citizen-actions">
+                    <ul class="icon-list">
+                        {% if current_user.citizen_id != citizen.citizen_id %}
+                            {% if citizen.permission != 'admin' %}
+                            <button class="btn" data-toggle="modal" data-target="#makeAdmin">
+                                <i class="material-icons" id="admin">
+                                    star
+                                </i>
+                            </button>
+                            {% endif %}
+                            <button class="btn" data-toggle="modal" data-target="#open-delete">
+                                <i class="material-icons">
+                                    delete
+                                </i>
+                            </button>
+                            <button class="btn" data-toggle="modal" data-target="#cancelNotice">
+                                <i class="material-icons" id="cancel">
+                                    not_interested
+                                </i>
+                            </button>
+                        {% endif %}
+                    </ul>
+                    <div class="modal fade" id="open-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Are you sure you would like to delete this citizen? </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="" novalidate>
+                                    {{ delete.hidden_tag() }}
+                                    {{ delete.citizen_id.label() }}
+                                    {{ delete.citizen_id(placeholder=citizen.citizen_id, value=citizen.citizen_id) }}
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                {{ delete.delete_submit(class="btn btn-danger") }}
+                            </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

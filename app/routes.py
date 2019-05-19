@@ -1,6 +1,6 @@
 from flask import render_template, jsonify
 from app import app, db
-from app.forms import Login, SignUp, CitizenReport, CitizenStatus
+from app.forms import Login, SignUp, CitizenReport, CitizenStatus, DeleteUser, MakeAdmin
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import Citizen, Report, Status, Image
 from flask import redirect, url_for, flash, request
@@ -214,6 +214,36 @@ def rank():
         prev=prev_citizens,
         title="Rank")
 
+@app.route('/admin_board', methods=['GET', 'POST'])
+@login_required
+def admin_board():
+    if str(current_user.permission) != 'admin':
+        return redirect(url_for('feed'))
+    else:
+        add_new_user = MakeAdmin()
+        delete_user = DeleteUser()
+        is_current = False
+        page = request.args.get('page', 1, type=int)
+        citizens = Citizen.query.order_by(
+            Citizen.score.desc()).paginate(
+            page, 10, False)
+        if delete_user.validate_on_submit():
+            try:
+                Citizen.query.filter_by(citizen_id=delete_user.citizen_id.data).delete()
+                db.session.commit()
+                print('Deleted user.')
+            except Exception as e:
+                print('Error in deleting user ' + str(e))
+        else:
+            print('Form did not validate')
+        if add_new_user.validate_on_submit():
+            try:
+                new_admin = Citizen.query.filter_by(citizen_id=add_new_user.citizen_id.data).first()
+                new_admin.permission = 'admin'
+                db.session.commit()
+            except Exception as e:
+                print('Error in making user admin ' + str(e))
+        return render_template('admin.html', citizens=citizens.items, delete=delete_user, add=add_new_user)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -230,13 +260,15 @@ def login():
             return redirect(url_for('login'))
         login_user(citizen)
         flash('Good login')
-        return redirect(url_for('feed'))
+        if citizen.permission != 'admin':
+            return redirect(url_for('feed'))
+        else:
+            return redirect(url_for('admin_board'))
     return render_template(
         'login.html',
         form=form,
         links=get_links(),
         title="Login")
-
 
 @app.route('/logout')
 @login_required

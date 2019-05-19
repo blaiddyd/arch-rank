@@ -1,0 +1,59 @@
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #4e79a8;
+}
+
+.citizen-actions i {
+    color: red;
+}
+
+#cancel {
+    color: darkred;
+}
+
+#admin {
+    color: green;
+}
+
+.modal #citizen_id {
+    border: none;
+    border-bottom: 2px #4e79a8 solid;
+    width: 17%;
+}
+
+.modal-body form {
+    text-align: center;
+}
+
+.modal label {
+    margin-top: 15px;
+    font-size: 1.1rem;
+}
+
+.add-new {
+    margin-top: 10px;
+    float: right;
+    background-color: #4e79a8;
+    font-size: 1rem;
+    color: white;
+}
+
+.rank {
+    font-size: 1.5rem;
+    text-align: right;
+    font-weight: bold;
+    align-self: flex-start;
+    margin-right: 10px;
+}
+
+.badge {
+    margin-left: 10px;
+    background-color: #4e79a8;
+    font-size: 0.9rem;
+    color: white;
+}
+
+.perm {
+    font-size: 1.1rem;
+}
