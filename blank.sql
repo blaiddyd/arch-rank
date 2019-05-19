@@ -13,7 +13,7 @@ CREATE TABLE citizen (
         password_hash VARCHAR(128), 
         permission VARCHAR(20), 
         score FLOAT, 
-        completed_signup INTEGER,
+        eval_stage INTEGER,
         profile_image VARCHAR(100),
         bio VARCHAR(200),
         fav_leader VARCHAR(30),
