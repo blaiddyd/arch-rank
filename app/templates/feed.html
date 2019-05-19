@@ -73,7 +73,7 @@
                     {% for report in reports %}
                          <div class="feed-post container-fluid">
                               <div class="poster">
-                                   <span>{{ report.time }}</span>
+                                   <span>{{ report.time.strftime('%H:%M, %d-%m-%Y') }}</span>
                                    
                                    <span>Citizen <a href="{{ url_for('profile', citizen_id=report.reporter_id) }}">{{ report.reporter_id }}</a></span>
                               </div>
@@ -88,13 +88,13 @@
                               </div>
                          </div>
                     {% endfor %}
-                    <div class="paginate">
+                    <div class="pagination">
                          {% if prev_reports %}
-                              <a href="{{ prev_reports }}">Latest</a>
+                              <a class="page-link" href="{{ prev_reports }}">Latest</a>
                          {% endif %}
 
                          {% if next_reports %}
-                              <a href="{{ next_reports }}">Oldest</a>
+                              <a class="page-link" href="{{ next_reports }}">Oldest</a>
                          {% endif %}
                     </div>
                </div>
@@ -102,7 +102,7 @@
                     {% for status in statuses %}
                          <div class="feed-post">
                               <div class="poster">
-                                   <span>{{ status.timestamp }}</span>
+                                   <span>{{ status.timestamp.strftime('%H:%M, %d-%m-%Y') }}</span>
                                    <span>Citizen <a href="{{ url_for('profile', citizen_id=status.citizen_id) }}">{{ status.citizen_id }}</a></span>
                               </div>
                               <div class="post-main">
@@ -115,17 +115,17 @@
                               </div>
                          </div>
                     {% endfor %}
-                    <div class="paginate">
-                         {% if prev_status %}
-                              <div class="latest">
-                                   <a href="{{ prev_status }}">Latest</a>
+                    <div class="pagination">
+                         {% if prev_statuses %}
+                              <div class="page-link">
+                                   <a href="{{ prev_statuses }}">Latest</a>
                               </div>
                          {% endif %}
 
                          
-                         {% if next_status %}
-                              <div class="oldest">
-                                   <a href="{{ next_status }}">Oldest</a>
+                         {% if next_statuses %}
+                              <div class="page-link">
+                                   <a href="{{ next_statuses }}">Oldest</a>
                               </div>
                          {% endif %}
                     </div>

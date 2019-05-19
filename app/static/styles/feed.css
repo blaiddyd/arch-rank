@@ -175,10 +175,11 @@ select option {
     flex-direction: column;
     border-right: 1px lightgray solid;
     height: 100%;
+    padding: 7px;
 }
 
 .feed-post > .post-main {
-    margin-left: 20px;
+    margin-left: 30px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -188,7 +189,6 @@ select option {
 
 .post-chip {
     background-color: aliceblue;
-    border-radius: 35px;
     color: black;
     text-align: left;
     width: 100%;
@@ -207,10 +207,11 @@ a {
     color: #4e79a8;
 }
 
-.paginate  > .latest {
-    float: left;
+.pagination {
+    margin-bottom: 10px;
+    float: right;
 }
 
-.paginate  > .oldest {
-    float: right;
+.pagination .page-link {
+    color: #4e79a8;
 }
