@@ -14,6 +14,15 @@
             <div class="formbox">
                 {% block content %}{% endblock %}
             </div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="errors">
+                    {% for message in messages %}
+                    <li class="error-flash alert alert-danger">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
             <nav class="navbar fixed-bottom">
                 <div class="nav">
                         {% for link in links %}
