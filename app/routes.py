@@ -38,6 +38,11 @@ def index():
     return render_template('index.html', title='Welcome', links=get_links())
 
 
+@app.route('/about')
+def about():
+    return 'This is about'
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -62,6 +67,54 @@ def register():
             print('There was an error creating new user.' + str(e))
     return render_template(
         'register.html', links=get_links(), title='Join Arch', form=form)
+
+
+@app.route('/evaluation')
+@login_required
+def eval():
+    citizen = Citizen.query.filter_by(
+        citizen_id=current_user.citizen_id).first_or_404()
+    eval_num = citizen.eval_stage + 1
+    print(eval_num)
+    if eval_num == 1:
+        title = "Stage 1"
+        page = 'eval1.html'
+    elif eval_num == 2:
+        title = "Stage 2"
+        page = 'eval2.html'
+    elif eval_num == 3:
+        title = "Stage 3"
+        page = 'eval2.html'
+    return render_template(page, links=get_links(), title=title)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('feed'))
+    form = Login()
+    if not form.validate_on_submit():
+        print('Form did not validate ')
+    if form.validate_on_submit():
+        citizen = Citizen.query.filter_by(
+            citizen_id=form.citizen_id.data).first()
+        if citizen is None or not citizen.check_password(form.password.data):
+            flash('Incorrect Citizen ID or Password')
+            return redirect(url_for('login'))
+        login_user(citizen)
+        return redirect(url_for('feed'))
+    return render_template(
+        'login.html',
+        form=form,
+        links=get_links(),
+        title="Login")
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 @app.route('/feed', methods=['GET', 'POST'])
@@ -213,38 +266,3 @@ def rank():
         next=next_citizens,
         prev=prev_citizens,
         title="Rank")
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('feed'))
-    form = Login()
-    if not form.validate_on_submit():
-        print('Form did not validate ')
-    if form.validate_on_submit():
-        citizen = Citizen.query.filter_by(
-            citizen_id=form.citizen_id.data).first()
-        if citizen is None or not citizen.check_password(form.password.data):
-            flash('Incorrect Citizen ID or Password')
-            return redirect(url_for('login'))
-        login_user(citizen)
-        flash('Good login')
-        return redirect(url_for('feed'))
-    return render_template(
-        'login.html',
-        form=form,
-        links=get_links(),
-        title="Login")
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
-
-
-@app.route('/about')
-def about():
-    return 'This is about'
