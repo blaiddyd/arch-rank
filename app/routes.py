@@ -1,6 +1,6 @@
 from flask import render_template, jsonify
 from app import app, db
-from app.forms import Login, SignUp, CitizenReport, CitizenStatus
+from app.forms import Login, SignUp, CitizenReport, CitizenStatus, Eval
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import Citizen, Report, Status, Image
 from flask import redirect, url_for, flash, request
@@ -69,23 +69,16 @@ def register():
         'register.html', links=get_links(), title='Join Arch', form=form)
 
 
-@app.route('/evaluation')
+@app.route('/evaluation', methods=['GET', 'POST'])
 @login_required
 def eval():
     citizen = Citizen.query.filter_by(
         citizen_id=current_user.citizen_id).first_or_404()
-    eval_num = citizen.eval_stage + 1
-    print(eval_num)
-    if eval_num == 1:
-        title = "Stage 1"
-        page = 'eval1.html'
-    elif eval_num == 2:
-        title = "Stage 2"
-        page = 'eval2.html'
-    elif eval_num == 3:
-        title = "Stage 3"
-        page = 'eval2.html'
-    return render_template(page, links=get_links(), title=title)
+    return render_template(
+        'eval.html',
+        links=get_links(),
+        title='Evaluation',
+        form=Eval())
 
 
 @app.route('/login', methods=['GET', 'POST'])

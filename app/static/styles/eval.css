@@ -1,22 +1,21 @@
-body {
-    overflow-y: hidden;
-}
-
 .container {
     display: grid;
     grid-template-rows: auto 1fr 30px;
     grid-template-areas: 
-                "header",
-                "main",
+                "header"
+                "main"
                 "footer";
     height: 100%;
+    width: 80%;
+    justify-content: center;
 }
 
 /* Main logo styling */
 .logo {
-    margin-bottom: 8vh;
+   
     height: calc(20px + 10vh);
     margin: 20px; 
+    margin-bottom: 10vh;
     justify-self: center;
     grid-area: "header"
 }
@@ -36,16 +35,15 @@ body {
     width: 100%
 }
 
-.formbox .row {
-    margin: 2px;
+form {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
 }
 
-.formbox form {
-    width: 30% + 50px;
-    margin: 0px;
-}
-
-.formbox input {
+input {
     border: none;
     border-radius: 0;
     border-bottom: 2px solid #959595;
@@ -54,31 +52,54 @@ body {
     margin-bottom: 20px;
 }
 
-#submit {
+.input_field {
+    width: 300px;
+}
+
+#form-kids select {
+    width: 70%;
+}
+
+label {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#eval_submit {
     border: none;
     background: #4e79a8;
     padding: 5px;
     margin-top: 20px;
-    width: 100%;
+    width: 200px;
     color: #ffffff;
+    grid-column-start: 2;
+    grid-column-end: 2;
 }
 
-/* Flash styling */
-.errors {
-    display: flex;
-    padding: 0;
-}
-
-.error-flash {
-    list-style: none;
+.alert {
     font-size: 15px;
+    padding: 8px;
+    margin: 0px;
+    border-radius: 0;
+    text-align: center;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
 }
 
 .progress {
-    grid-area: "footer"
-    
+    border-radius: 0px;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    width: 100vw;
+
 }
 
 .progress-bar {
     background-color: #4e79a8;
+}
+
+.has-success input {
+    border-color: #4e79a8;
 }
