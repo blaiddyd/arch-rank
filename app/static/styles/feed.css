@@ -35,9 +35,8 @@
     padding: 0;
     list-style: none;
     position: relative;
-    border-radius: 20px;
     overflow: hidden;
-    background: white;
+    background: whitesmoke;
     height: 35px;
     user-select: none;
 }
@@ -46,12 +45,12 @@
     content: "";
     width: 50%;
     background: #4e79a8;
+    color: white;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     transition: all 250ms ease-in-out;
-    border-radius: 20px;
 }
 
 .tab--tabs.slide::after, .tab--tabs2.slide2::after {
@@ -166,7 +165,7 @@ select option {
 }
 
 .feed-post:hover {
-    transform: scale(0.9, 0.9);
+    transform: scale(1.1, 1.1);
 }
 
 .poster {

@@ -61,7 +61,7 @@ def register():
         except Exception as e:
             print('There was an error creating new user.' + str(e))
     return render_template(
-        'register.html', links=get_links(), title='Register', form=form)
+        'register.html', links=get_links(), title='Join Arch', form=form)
 
 
 @app.route('/feed', methods=['GET', 'POST'])
@@ -83,10 +83,14 @@ def feed():
             try:
                 reported.score = reported.score + float(form.category.data)
                 db.session.commit()
+                subject = value = dict(
+                    form.category.choices).get(
+                    form.category.data)
                 new_report = Report(
                     reporter_id=current_user.citizen_id,
                     reported_id=reported.citizen_id,
                     report_id=gen_id(),
+                    report_category=subject,
                     body=form.body.data)
                 db.session.add(new_report)
                 db.session.commit()
@@ -100,12 +104,16 @@ def feed():
         try:
             current_citizen = Citizen.query.filter_by(
                 citizen_id=current_user.citizen_id).first()
-            current_citizen.score = current_citizen.score + float(
-                status_input.status_category.data)
+            current_citizen.score = current_citizen.score + \
+                float(status_input.status_category.data)
             db.session.commit()
+            status_subject = dict(
+                status_input.status_category.choices).get(
+                status_input.status_category.data)
             new_status = Status(
                 citizen_id=current_user.citizen_id,
                 status_id=gen_id(),
+                status_category=status_subject,
                 body=status_input.status.data)
             db.session.add(new_status)
             db.session.commit()
@@ -116,13 +124,15 @@ def feed():
         print('Status form validation error')
         print(status_input.errors)
     reports = Report.query.order_by(
-        Report.time.desc()).paginate(reports_page, 5, False)
+        Report.time.desc()).paginate(
+        reports_page, 5, False)
     next_reports = url_for('feed', reports=reports.next_num) \
         if reports.has_next else None
     prev_reports = url_for('feed', reports=reports.prev_num) \
         if reports.has_prev else None
     all_status = Status.query.order_by(
-        Status.timestamp.desc()).paginate(status_page, 5, False)
+        Status.timestamp.desc()).paginate(
+        status_page, 5, False)
     next_statuses = url_for('feed', status=all_status.next_num) \
         if all_status.has_next else None
     prev_statuses = url_for('feed', status=all_status.prev_num) \
@@ -137,8 +147,7 @@ def feed():
         next_reports=next_reports,
         prev_reports=prev_reports,
         next_status=next_statuses,
-        prev_status=prev_statuses
-    )
+        prev_status=prev_statuses)
 
 
 @app.route('/profile')
@@ -188,13 +197,15 @@ def get_images(num):
 def rank():
     page = request.args.get('page', 1, type=int)
     citizens = Citizen.query.order_by(
-        Citizen.score.desc()).paginate(page, 10, False)
+        Citizen.score.desc()).paginate(
+        page, 10, False)
     next_citizens = url_for('rank', page=citizens.next_num) \
         if citizens.has_next else None
     prev_citizens = url_for('rank', page=citizens.prev_num) \
         if citizens.has_prev else None
     top_citizens = Citizen.query.filter(
-        Citizen.score >= 5000).order_by(func.random()).limit(3)
+        Citizen.score >= 5000).order_by(
+        func.random()).limit(3)
     return render_template(
         'rank.html',
         citizens=citizens.items,
@@ -204,7 +215,7 @@ def rank():
         title="Rank")
 
 
-@app.route('/login',  methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('feed'))
@@ -221,7 +232,10 @@ def login():
         flash('Good login')
         return redirect(url_for('feed'))
     return render_template(
-        'login.html', form=form, links=get_links(), title="Login")
+        'login.html',
+        form=form,
+        links=get_links(),
+        title="Login")
 
 
 @app.route('/logout')

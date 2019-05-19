@@ -11,12 +11,12 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 
+from app import routes  # nopep8
+
 login.login_view = 'login'
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-
-from app import routes  # nopep8
 
 if __name__ == '__main__':
     app.run()

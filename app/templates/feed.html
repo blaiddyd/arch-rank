@@ -160,9 +160,9 @@
 
       $(".tab--slider2 li").click(function() {
            $(".tab--body2").hide();
-           var activeTab = $(this).attr("rel");
-           $("#" + activeTab).fadeIn();
-                if ($(this).attr("rel") == "recent-status"){
+           var activeFeed = $(this).attr("rel");
+           $("#" + activeFeed).fadeIn();
+                if ($(this).attr("rel") == "recent-stats"){
                      $('.tab--tabs2').addClass('slide2');
                 }
                 else{
