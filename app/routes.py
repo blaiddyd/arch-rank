@@ -1,12 +1,13 @@
-from flask import render_template
+from flask import render_template, jsonify
 from app import app, db
 from app.forms import Login, SignUp, CitizenReport, CitizenStatus
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import Citizen, Report, Status
+from app.models import Citizen, Report, Status, Image
 from flask import redirect, url_for, flash, request
 from sqlalchemy import func
 import string
 import random
+from requests import get
 
 
 def gen_id():
@@ -47,14 +48,20 @@ def register():
             citizen = Citizen(
                 citizen_id=form.citizen_id.data,
                 name=form.citizen_id.data,
-                score=0)
+                score=20000,
+                profile_image=url_for(
+                    'static', filename='assets/blank_profile.png'
+                )
+            )
             citizen.set_password(form.password.data)
             db.session.add(citizen)
             db.session.commit()
-            return redirect(url_for('login'))
+            login_user(citizen)
+            return redirect(url_for('feed'))
         except Exception as e:
             print('There was an error creating new user.' + str(e))
-    return render_template('register.html', title='Join Arch', form=form)
+    return render_template(
+        'register.html', links=get_links(), title='Join Arch', form=form)
 
 
 @app.route('/feed', methods=['GET', 'POST'])
@@ -154,10 +161,36 @@ def profile_home():
 @login_required
 def profile(citizen_id):
     citizen = Citizen.query.filter_by(citizen_id=citizen_id).first_or_404()
+    title = citizen.name
+    is_self = False
+    if citizen_id == current_user.citizen_id:
+        is_self = True
+        title = 'My Profile'
     return render_template(
-        'profile.html',
-        title='My Profile',
-        links=get_links())
+        'profile.html', title=title, citizen=citizen, is_self=is_self)
+
+
+@app.route('/profile/random_img')
+@login_required
+def random_profile():
+    citizen = Citizen.query.filter_by(
+        citizen_id=current_user.citizen_id).first_or_404()
+    random_img = random.choice(Image.query.all()).image_url
+    citizen.set_pic(random_img)
+    db.session.commit()
+    return redirect(url_for('profile', citizen_id=current_user.citizen_id))
+
+
+def get_images(num):
+    client_id = app.config['IMG_ACCESS']
+    orientation = 'squarish'
+    count = nums
+    url = 'https://api.unsplash.com/photos/random/?client_id={}&orientation={}&count={}'.format(client_id, orientation, count)  # nopep8
+    content = get(url).json()
+    for img in content:
+        image = Image(image_url=img['urls']['small'])
+        db.session.add(image)
+    db.session.commit()
 
 
 @app.route('/rank')
@@ -178,7 +211,8 @@ def rank():
         citizens=citizens.items,
         tops=top_citizens,
         next=next_citizens,
-        prev=prev_citizens)
+        prev=prev_citizens,
+        title="Rank")
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -192,7 +226,7 @@ def login():
         citizen = Citizen.query.filter_by(
             citizen_id=form.citizen_id.data).first()
         if citizen is None or not citizen.check_password(form.password.data):
-            print('Bad login attempt')
+            flash('Incorrect Citizen ID or Password')
             return redirect(url_for('login'))
         login_user(citizen)
         flash('Good login')

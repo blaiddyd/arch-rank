@@ -1,0 +1,12 @@
+.profilebox {
+    display: grid;
+    grid-template-rows: 1fr 3fr; 
+}
+
+#profile_pic {
+    
+    object-fit: cover;
+    width: calc(100px + 10vmin);
+    height: calc(100px + 10vmin);
+    clip-path: circle(calc(50px + 5vmin) at center);
+}

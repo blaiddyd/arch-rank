@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 
-from app import routes
+from app import routes  # nopep8
 
 login.login_view = 'login'
 
