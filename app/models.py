@@ -11,7 +11,6 @@ class Citizen(db.Model, UserMixin):
     score = db.Column(db.Float)
     password_hash = db.Column(db.String(128))
     permission = db.Column(db.String(20), index=True, default='citizen')
-    eval_stage = db.Column(db.Integer, default="0")
     profile_image = db.Column(db.String(100))
     bio = db.Column(db.String(200))
     fav_leader = db.Column(db.String(30))
