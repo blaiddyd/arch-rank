@@ -79,7 +79,17 @@ body {
     color: #ffffff;
 }
 
-#register {
+.errors {
+    display: flex;
+    padding: 0;
+}
+
+.error-flash {
+    list-style: none;
+    font-size: 15px;
+}
+
+#undertext {
     color: #4e79a8;
     font-size: 12px;
 }
