@@ -1,4 +1,3 @@
-from app import routes
 import os
 from flask import Flask
 from config import Config
@@ -11,6 +10,8 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
+
+from app import routes
 
 login.login_view = 'login'
 

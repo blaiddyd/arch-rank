@@ -35,9 +35,8 @@
     padding: 0;
     list-style: none;
     position: relative;
-    border-radius: 20px;
     overflow: hidden;
-    background: white;
+    background: whitesmoke;
     height: 35px;
     user-select: none;
 }

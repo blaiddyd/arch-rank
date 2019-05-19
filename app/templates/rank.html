@@ -1,26 +1,35 @@
 {% extends "sidebar-base.html" %}
 
+{% block style %}
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/rank.css') }}">
+{% endblock %}
+
 {% block content %}
-     <p>Rank page</p>
-     Highligted citizens
-     <ul>
+     <ul class="highlight-box">
           {% for top in tops %}
-               <li>
+               <li class="highlight">
+                    <i class="material-icons-outlined">
+                         account_circle
+                    </i>
                     {{ top.citizen_id }}
+                    {{ top.score }}
                </li>
           {% endfor %}
 
      </ul>
 
      Standings
-     <ol>
+     <ol class="list-group">
           {% for citizen in citizens %}
-               <li>
-                    Citizen {{ citizen.citizen_id }}: {{ citizen.score }}
+               <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Citizen {{ citizen.citizen_id }} 
+                    <span class="badge badge-primary badge-pill">
+                         {{ citizen.score }}
+                    </span>
                </li>
           {% endfor %}
 
-     </ol>
+     </ul>
      {% if prev %}
           <a href="{{ prev }}">Citizens better than u</a>
      {% endif %}

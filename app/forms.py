@@ -72,17 +72,22 @@ class CitizenReport(FlaskForm):
             DataRequired()])
     body = TextAreaField(
         'More about your report', render_kw={
-            "placeholder": "What would you like to report?"})
+            "placeholder": "What would you like to report?"},
+        validators=[
+            DataRequired(),
+            Length(
+                min=4,
+                max=140)])
     report_submit = SubmitField('Lodge Your Report')
 
 
 class CitizenStatus(FlaskForm):
     status = TextAreaField(
         "What's on your mind?", render_kw={
-            "placeholder": "What are you up to?"})
+            "placeholder": "What are you up to?"},
+        validators=([Length(min=4, max=140)]))
     status_category = SelectField(
         'Type of Activity',
         choices=activities,
-        validators=[
-            DataRequired()])
+        validators=[DataRequired()])
     status_submit = SubmitField('Submit Status')
