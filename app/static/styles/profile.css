@@ -6,7 +6,7 @@
 #profile_pic {
     
     object-fit: cover;
-    width: 300;
-    height: 300;
-    clip-path: circle(150px at center);
+    width: calc(100px + 10vmin);
+    height: calc(100px + 10vmin);
+    clip-path: circle(calc(50px + 5vmin) at center);
 }
