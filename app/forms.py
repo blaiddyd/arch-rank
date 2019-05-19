@@ -1,22 +1,50 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, TextAreaField
+from wtforms import SubmitField, SelectField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, ValidationError, Length
 from wtforms.fields.html5 import EmailField
 from app.models import Citizen
 
-offenses = [('-1000', 'Speaking Ill of the Supreme Commander'),('-2000', 'Being such a bad citizen that the world hates you also you were adopted'), ('-100', 'Insulting a Fellow Citizen'), ('-3000', 'Not Celebrating *Important Holiday*')]
-activities = [('2000', 'Graduating from Divine Academy'), ('3000', 'Praising the Supreme Commander'), ('100', 'Contributing to the Community')]
+offenses = [
+    ('-1000',
+     'Speaking Ill of the Supreme Commander'),
+    ('-2000',
+     'Being such a bad citizen you also you were adopted'),
+    ('-100',
+     'Insulting a Fellow Citizen'),
+    ('-3000',
+     'Not Celebrating *Important Holiday*')]
+activities = [
+    ('2000',
+     'Graduating from Divine Academy'),
+    ('3000',
+     'Praising the Supreme Commander'),
+    ('100',
+     'Contributing to the Community')]
+
 
 class Login(FlaskForm):
-    citizen_id = StringField('Citizen ID', render_kw={"placeholder": "Citizen ID"}, validators=[DataRequired(), Length(min=4, max=8)])
-    password = PasswordField('Password', render_kw={"placeholder": "Password"}, validators=[DataRequired()])
+    citizen_id = StringField(
+        'Citizen ID', render_kw={
+            "placeholder": "Citizen ID"}, validators=[
+            DataRequired(), Length(
+                min=4, max=8)])
+    password = PasswordField(
+        'Password',
+        render_kw={
+            "placeholder": "Password"},
+        validators=[
+            DataRequired()])
     keepsigned = BooleanField('Remember Me')
     submit = SubmitField('Log In')
+
 
 class SignUp(FlaskForm):
     citizen_id = StringField('Citizen ID', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    confirmPass = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    confirmPass = PasswordField(
+        'Confirm Password', validators=[
+            DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
     def validate_id(self, citizen_id):
@@ -24,15 +52,37 @@ class SignUp(FlaskForm):
         if citizen is not None:
             raise ValidationError('This citizen already exists in Arch')
 
+
 class CitizenReport(FlaskForm):
-    traitor = StringField("The Traitor's Citizen ID", render_kw={"placeholder": "Traitor ID"}, validators=[DataRequired(), Length(min=4, max=8)])
-    category = SelectField('Type of Treason', render_kw={"placeholder": "Select an offense"}, choices=offenses, validators=[DataRequired()])
-    body = TextAreaField('More about your report', render_kw={"placeholder": "What would you like to report?"})
+    traitor = StringField(
+        "The Traitor's Citizen ID",
+        render_kw={
+            "placeholder": "Traitor ID"},
+        validators=[
+            DataRequired(),
+            Length(
+                min=4,
+                max=8)])
+    category = SelectField(
+        'Type of Treason',
+        render_kw={
+            "placeholder": "Select an offense"},
+        choices=offenses,
+        validators=[
+            DataRequired()])
+    body = TextAreaField(
+        'More about your report', render_kw={
+            "placeholder": "What would you like to report?"})
     report_submit = SubmitField('Lodge Your Report')
 
+
 class CitizenStatus(FlaskForm):
-    status = TextAreaField("What's on your mind?", render_kw={"placeholder": "What are you up to?"})
-    status_category = SelectField('Type of Activity', choices=activities, validators=[DataRequired()])
+    status = TextAreaField(
+        "What's on your mind?", render_kw={
+            "placeholder": "What are you up to?"})
+    status_category = SelectField(
+        'Type of Activity',
+        choices=activities,
+        validators=[
+            DataRequired()])
     status_submit = SubmitField('Submit Status')
-
-

@@ -1,3 +1,4 @@
+from app import routes
 import os
 from flask import Flask
 from config import Config
@@ -15,7 +16,6 @@ login.login_view = 'login'
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-from app import routes
 
 if __name__ == '__main__':
     app.run()
