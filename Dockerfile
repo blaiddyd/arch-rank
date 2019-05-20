@@ -1,6 +1,7 @@
-FROM python:3.6
+FROM python:3.6-alpine
 WORKDIR /root
 ENV FLASK_ENV="production"
+ENV FLASK_APP=arch.py
 EXPOSE "${PORT:-5000}"
 COPY requirements.txt .
 RUN pip install -r requirements.txt
