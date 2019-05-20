@@ -106,6 +106,14 @@ class Tests(unittest.TestCase):
         res = self.app.get('/profile/3434')
         self.assertEqual(Citizen.query.count(), 1)
         self.assertEqual(res.status_code, 302)
+    
+    def test_admin_board(self):
+        resp = self.app.get('/admin_board')
+        self.assertEqual(resp.status_code, 302)
+    
+    def test_eval(self):
+        res = self.app.get('/evaluation')
+        self.assertEqual(res.status_code, 302)
 
 
 if __name__ == '__main__':

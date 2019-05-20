@@ -7,7 +7,13 @@
 {% block content %}
 
 <div class="feedbox">
+     {% if invalid_citizen %}
+          <div class="alert alert-danger" role="alert">
+               You have entered an invalid Citizen ID.
+          </div>
+     {% endif %}
      <div class="container-fluid">
+          
           <div id="formtabs" class="tab--slider">
                <ul id="formsections" class="tab--tabs">
                     <li class="tab-slider--trigger active" rel="report-tab">
@@ -115,20 +121,6 @@
                               </div>
                          </div>
                     {% endfor %}
-                    <div class="pagination">
-                         {% if prev_statuses %}
-                              <div class="page-link">
-                                   <a href="{{ prev_statuses }}">Latest</a>
-                              </div>
-                         {% endif %}
-
-                         
-                         {% if next_statuses %}
-                              <div class="page-link">
-                                   <a href="{{ next_statuses }}">Oldest</a>
-                              </div>
-                         {% endif %}
-                    </div>
                </div>
           </div>
      </div>
