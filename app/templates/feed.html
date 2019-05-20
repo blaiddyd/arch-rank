@@ -132,7 +132,9 @@
      </div>
     
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+{% endblock %}
+
+{% block script %}
 <script>
     $("document").ready(function(){
            $(".tab--body").hide();
@@ -170,4 +172,4 @@
            $(this).addClass("active");
       });
  </script>
-{% endblock content %}
+ {% endblock %}

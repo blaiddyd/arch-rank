@@ -15,15 +15,16 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    height: 100px;
     margin-right: 50px;
     text-align: center;
 }
 
 .highlight .picture-box img {
-    max-height: 100px;
+    object-fit: cover;
     border-radius: 50%;
     margin-bottom: 10px;
+    height: 100px;
+    width: 100px;
 }
 
 .highlight:nth-child(2) span { 
@@ -31,7 +32,9 @@
 }
 
 .highlight:nth-child(2) img {
-    max-height: 125px;
+    height: 140px;
+    width: 140px;
+
 }
 
 .list-group {

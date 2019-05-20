@@ -6,11 +6,48 @@
 
 {% block content %}
      <div class="profilebox">
-          <img id="profile_pic" src="{{ citizen.profile_image }}">
-          <!-- <button onclick="request_random_img()">Random</button> -->
+          <div class="pic-container">
+               <img id="profile_pic" class="image" src="{{ citizen.profile_image }}">
+               <div class="overlay">
+                    <button class="btn" onclick="request_random_img()">Random Picture</button>
+               </div>
+          </div>
+          <div class="info">
+               <h1>{{ citizen.citizen_id }}</h1>
+               <h2>{{ citizen.name }}</h2>
+               
+          </div>
+          <div class="score">
+               <h3 class="badge badge-pill">{{ citizen.score }}</h3>
+          </div>
+     </div>
+     <div class="statusbox">
+          {% for stat in status %}
+          <div class="feed-post">
+               <div class="poster">
+                         <span>{{ stat.timestamp.strftime('%H:%M, %d-%m-%Y') }}</span>
+                    </div>
+                    <div class="post-main">
+                         <div class="post-chip">
+                              {{ stat.status_category }}
+                         </div>
+                         <div class="post-body">
+                              {{ stat.body }}
+                         </div>
+                    </div>
+               </div>
+          {% endfor %}
+     </div>
+     <div class="pagination">
+          {% if prev %}
+               <a class="page-link" href="{{ prev }}">Latest</a>
+          {% endif %}
+
+          {% if next %}
+               <a class="page-link" href="{{ next }}">OLdest</a>
+          {% endif %}
      </div>
      <script>
-
           function request_random_img() {
                var xhttp = new XMLHttpRequest();
                xhttp.open("GET", "/profile/random_img", true);

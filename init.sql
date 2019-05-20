@@ -54,6 +54,6 @@ CREATE TABLE image (
         PRIMARY KEY (image_id)
 );
 
-INSERT INTO citizen (citizen_id)
+INSERT INTO citizen VALUES('0000','0000','pbkdf2:sha256:150000$6dO5sbLc$8923805575b7493d976e1881bf30793c999fb22cb96513daf0dc9b38682ad1a0','admin',NULL,70000.0,'/static/assets/blank_profile.png',NULL,NULL,NULL);
 
 COMMIT;

@@ -1,12 +1,128 @@
 .profilebox {
     display: grid;
-    grid-template-rows: 1fr 3fr; 
+    grid-template-columns: calc(100px + 10vmin) 1fr 1fr;
+    grid-template-areas: "pic name score"
+}
+
+.info {
+    padding-left: 20px;
+    align-self: center;
+
+}
+
+.info h1 {
+    font-size: calc(50px + 2vw);
+    color: #4e78a9;
+    margin: 0;
+}
+
+.info h2 {
+    font-size: calc(10px + 2vw);
+    color: #5e5e5e;
+}
+
+.score {
+    grid-area: score;
+    align-self: center;
+}
+
+.score h3 {
+    font-size: calc(5px + 3vw);
+    text-align: center;
+}
+
+.badge {
+    background-color: #4e79a8;
+    font-size: 1rem;
+    color: white;
+}
+
+.pic-container {
+    width: calc(100px + 10vmin);
+    height: calc(100px + 10vmin);
 }
 
 #profile_pic {
-    
     object-fit: cover;
-    width: calc(100px + 10vmin);
-    height: calc(100px + 10vmin);
+    width: inherit;
+    height: inherit;
     clip-path: circle(calc(50px + 5vmin) at center);
+    opacity: 1;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.overlay {
+    transition: .5s ease;
+    opacity: 0;
+    transform: translateY(-100px);
+    text-align: center;
+  }
+
+.overlay button {
+    background-color: #424242;
+    color: #f8f8f8;
+}
+
+.overlay button:hover {
+    background-color: #5e5e5e;
+    color: #f8f8f8;
+}
+
+  .pic-container:hover .image {
+    opacity: 0.3;
+  }
+  
+  .pic-container:hover .overlay {
+    opacity: 1;
+  }
+
+.feed-post {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  margin: 20px auto;
+  align-content: start;
+  justify-content: start;
+  padding: 10px;
+  border: 2px whitesmoke solid;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.feed-post:hover {
+    transform: scale(1.1, 1.1);
+}
+
+.poster {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    border-right: 1px lightgray solid;
+    height: 100%;
+    padding: 7px;
+}
+
+.feed-post > .post-main {
+    margin-left: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: start;
+}
+
+.post-chip {
+    background-color: aliceblue;
+    color: black;
+    text-align: left;
+    width: 100%;
+    padding: 5px;
+}
+
+.post-main > .post-body {
+    width: 100%;
+    padding: 10px;
+    background-color: white;
 }
