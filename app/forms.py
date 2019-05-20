@@ -32,7 +32,14 @@ professions = [
     ('2', 'Public Lawyer'),
     ('3', 'Office Drone'),
     ('3', 'Mechanical Technician'),
-    ('3', 'Behavior Counselor')
+    ('3', 'Behavior Counselor'),
+    ('4', 'Waste Shepherd'),
+    ('4', 'Professor'),
+    ('4', 'Student'),
+    ('4', 'Child'),
+    ('4', 'Unemployed'),
+    ('5', 'Petty Criminal'),
+    ('5', 'Pyramid Schemer')
 ]
 islands = [
     ('', 'Select your island'),
@@ -86,11 +93,14 @@ class SignUp(FlaskForm):
         validators=[DataRequired(), Length(min=4, max=8)])
     password = PasswordField(
         'Password',
-        render_kw={"placeholder": "Password"},
+        render_kw={
+            "placeholder": "Password"},
         validators=[DataRequired()])
     confirmPass = PasswordField(
         'Confirm Password',
-        render_kw={"placeholder": "Confirm Password"},
+        render_kw={
+            "placeholder": "Confirm Password",
+            "data-validation": "confirmation"},
         validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 

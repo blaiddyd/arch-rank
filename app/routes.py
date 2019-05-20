@@ -64,9 +64,20 @@ def register():
             login_user(citizen)
             return redirect(url_for('feed'))
         except Exception as e:
+            flash('User already exists')
             print('There was an error creating new user.' + str(e))
     return render_template(
         'register.html', links=get_links(), title='Join Arch', form=form)
+
+
+def gen_score(form):
+        score = 30000
+        score += (3 - int(form.island.data[0])) * 2500
+        score += (4 - int(form.profession.data[0])) * 3000
+        score += (form.income.data/100)
+        score += int(form.kids.data[0])*500
+        score += int(form.lonely.data) * -1000
+        return score
 
 
 @app.route('/evaluation', methods=['GET', 'POST'])
@@ -82,6 +93,7 @@ def eval():
         citizen = Citizen.query.filter_by(
             citizen_id=current_user.citizen_id).first()
         citizen.name = form.full_name.data
+        citizen.score = gen_score(form)
         citizen.eval_complete = 1
         random_img = random.choice(Image.query.all()).image_url
         citizen.set_pic(random_img)
@@ -109,7 +121,6 @@ def login():
             flash('Incorrect Citizen ID or Password')
             return redirect(url_for('login'))
         login_user(citizen)
-        flash('Good login')
         if citizen.permission != 'admin':
             return redirect(url_for('feed'))
         else:

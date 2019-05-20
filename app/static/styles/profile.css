@@ -1,6 +1,40 @@
 .profilebox {
     display: grid;
-    grid-template-rows: 1fr 3fr; 
+    grid-template-columns: calc(100px + 10vmin) 1fr 1fr;
+    grid-template-areas: "pic name score"
+}
+
+.info {
+    padding-left: 20px;
+    align-self: center;
+
+}
+
+.info h1 {
+    font-size: calc(50px + 2vw);
+    color: #4e78a9;
+    margin: 0;
+}
+
+.info h2 {
+    font-size: calc(10px + 2vw);
+    color: #5e5e5e;
+}
+
+.score {
+    grid-area: score;
+    align-self: center;
+}
+
+.score h3 {
+    font-size: calc(5px + 3vw);
+    text-align: center;
+}
+
+.badge {
+    background-color: #4e79a8;
+    font-size: 1rem;
+    color: white;
 }
 
 .pic-container {

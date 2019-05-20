@@ -72,7 +72,6 @@
         $.validate();
         $('#profession').children(":first").attr('disabled', true).attr('selected', true);
         $('#island').children(":first").attr('disabled', true).attr('selected', true);
-        
         $( document.body ).click(function() {
                 var progress = 0;
                 $(".has-success").each(function() {
@@ -81,6 +80,5 @@
                 console.log(progress);
                 $('.progress-bar').width(progress*15 +'%');
         });
-        
 </script>
 {% endblock %}

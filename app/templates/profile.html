@@ -12,6 +12,14 @@
                     <button class="btn" onclick="request_random_img()">Random Picture</button>
                </div>
           </div>
+          <div class="info">
+               <h1>{{ citizen.citizen_id }}</h1>
+               <h2>{{ citizen.name }}</h2>
+               
+          </div>
+          <div class="score">
+               <h3 class="badge badge-pill">{{ citizen.score }}</h3>
+          </div>
      </div>
      <script>
           function request_random_img() {
