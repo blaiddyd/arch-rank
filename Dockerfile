@@ -1,4 +1,4 @@
-FROM python:3.6-alpine
+FROM python:3.6
 WORKDIR /root
 ENV FLASK_ENV="production"
 EXPOSE "${PORT:-5000}"
