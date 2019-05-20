@@ -54,6 +54,8 @@ input {
 
 .input_field {
     width: 300px;
+    padding-left: 80px;
+    margin-bottom: 10vh;
 }
 
 #form-kids select {
@@ -72,8 +74,15 @@ label {
     margin-top: 20px;
     width: 200px;
     color: #ffffff;
-    grid-column-start: 2;
-    grid-column-end: 2;
+    grid-column: 1 / span 2;
+}
+
+#info {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 60px;
 }
 
 .alert {
@@ -82,16 +91,13 @@ label {
     margin: 0px;
     border-radius: 0;
     text-align: center;
-    position: -webkit-sticky;
-    position: sticky;
-    bottom: 0;
 }
 
 .progress {
     border-radius: 0px;
-    position: -webkit-sticky;
-    position: sticky;
-    bottom: 0;
+    position: fixed;
+    bottom: 60px;
+    left: 0;
     width: 100vw;
 
 }

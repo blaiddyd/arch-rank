@@ -12,6 +12,7 @@ CREATE TABLE citizen (
         name VARCHAR(64), 
         password_hash VARCHAR(128), 
         permission VARCHAR(20), 
+        eval_complete INTEGER,
         score FLOAT, 
         profile_image VARCHAR(100),
         bio VARCHAR(200),

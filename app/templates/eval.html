@@ -27,6 +27,10 @@
                                 {{ form.home_address.label }} <br>
                                 {{ form.home_address }}
                         </div>
+                        <div id="form-island" class="input_field">
+                                        {{ form.island.label }} <br>
+                                        {{ form.island }}
+                        </div>
                         <div id="form-pro" class="input_field">
                                 {{ form.profession.label }} <br>
                                 {{ form.profession }}
@@ -47,14 +51,17 @@
                                 {{ form.lonely.label }}
                                 {{ form.lonely }}
                         </div>
-                        {{ form.eval_submit }}
+                        <div class="input_field">
+                                {{ form.eval_submit }}
+                        </div>
+
                 </form>
         </div>
         <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="1" aria-valuemin="0"
+                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="1" aria-valuemin="0"
                         aria-valuemax="3"></div>              
         </div>
-        <p class="alert alert-primary">Please answer these questions as truthfully as possible.<br>Remember,
+        <p id="info" class="alert alert-primary">Please answer these questions as truthfully as possible.<br>Remember,
                 lying is a supreme offence and is punishable by cancellation</p>
         
 </div>
@@ -64,7 +71,16 @@
 <script>
         $.validate();
         $('#profession').children(":first").attr('disabled', true).attr('selected', true);
-        var progress = $('.valid').length;
-        $('.progress-bar').css('width', progress + '%');
+        $('#island').children(":first").attr('disabled', true).attr('selected', true);
+        
+        $( document.body ).click(function() {
+                var progress = 0;
+                $(".has-success").each(function() {
+                        progress++;
+                });
+                console.log(progress);
+                $('.progress-bar').width(progress*15 +'%');
+        });
+        
 </script>
 {% endblock %}

@@ -31,6 +31,36 @@ professions = [
     (2, 'Archival Custodian'),
     (2, 'Public Lawyer')
 ]
+islands = [
+    ('', 'Select your island'),
+    (1, 'Santorini'),
+    (1, 'Samos'),
+    (1, 'Mykonos'),
+    (1, 'Delos'),
+    (1, 'Nisyros'),
+    (1, 'Izmir'),
+    (1, 'Symi'),
+    (2, 'Chios'),
+    (2, 'Rhodes'),
+    (2, 'Kos'),
+    (2, 'Samothrace'),
+    (2, 'Leros'),
+    (2, 'Thasos'),
+    (3, 'Lemnos'),
+    (3, 'Icaria'),
+    (3, 'Naxos'),
+    (3, 'Andros'),
+    (3, 'Euboea'),
+    (3, 'Amorgos'),
+    (4, 'Patmos'),
+    (4, 'Milos'),
+    (4, 'Karpathos'),
+    (4, 'Skyros'),
+    (4, 'Skiathos'),
+    (4, 'Kalymnos'),
+    (5, 'Hydra'),
+    (6, 'Syros')
+]
 
 
 class Login(FlaskForm):
@@ -114,10 +144,17 @@ class Eval(FlaskForm):
     home_address = StringField(
         'Home Address',
         render_kw={
-            "placeholder": "45 Highcourt Pl, Izmir",
+            "placeholder": "45 Highcourt Pl",
             "data-validation": "custom",
-            "data-validation-regexp": "^([a-zA-Z1-9]+)( ([a-zA-Z]+))+,( ([a-zA-Z]+))+$",  # nopep8
+            "data-validation-regexp": "^([a-zA-Z0-9]+)( ([a-zA-Z]+))+$",  # nopep8
             "data-validation-error-msg": " "},
+        validators=[DataRequired()])
+    island = SelectField(
+        'Island',
+        render_kw={
+            "data-validation": "required",
+            "data-validation-error-msg": " "},
+        choices=islands,
         validators=[DataRequired()])
     profession = SelectField(
         'Profession',
@@ -131,7 +168,7 @@ class Eval(FlaskForm):
         render_kw={
             "type": "number",
             "data-validation": "custom",
-            "data-validation-regexp": "^([1-9]+)$",
+            "data-validation-regexp": "^([0-9]+)$",
             "step": "1000",
             "data-validation-error-msg": " "},
         validators=[DataRequired()])
@@ -149,8 +186,10 @@ class Eval(FlaskForm):
             (7, 'I have one child for each day of the beautiful week and I have named them accordingly'),  # nopep8
             (8, 'My children are bountiful as the apples on the trees, as the islands of Agea, as the eight wise elders'),  # nopep8
             (9, 'I have nine children')],
-        validators=[DataRequired()]
-    )
+        render_kw={
+            "data-validation": "required",
+            "data-validation-error-msg": " "},
+        validators=[DataRequired()])
     lonely = BooleanField(
         'Are you lonely?',
         default=True)

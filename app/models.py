@@ -8,6 +8,7 @@ from sqlalchemy.sql import func
 class Citizen(db.Model, UserMixin):
     citizen_id = db.Column(db.String(12), primary_key=True)
     name = db.Column(db.String(64), index=True)
+    eval_complete = db.Column(db.Integer)
     score = db.Column(db.Float)
     password_hash = db.Column(db.String(128))
     permission = db.Column(db.String(20), index=True, default='citizen')

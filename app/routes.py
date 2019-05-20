@@ -72,13 +72,19 @@ def register():
 @app.route('/evaluation', methods=['GET', 'POST'])
 @login_required
 def eval():
-    citizen = Citizen.query.filter_by(
-        citizen_id=current_user.citizen_id).first_or_404()
+    form = Eval()
+    if form.validate_on_submit():
+        citizen = Citizen.query.filter_by(
+            citizen_id=current_user.citizen_id).first_or_404()
+        citizen.name = form.full_name.data
+        print(form.full_name.data)
+        db.session.commit()
+    print('nope')
     return render_template(
         'eval.html',
         links=get_links(),
         title='Evaluation',
-        form=Eval())
+        form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -87,7 +93,7 @@ def login():
         return redirect(url_for('feed'))
     form = Login()
     if not form.validate_on_submit():
-        print('Form did not validate ')
+        print('Form did not validate')
     if form.validate_on_submit():
         citizen = Citizen.query.filter_by(
             citizen_id=form.citizen_id.data).first()
