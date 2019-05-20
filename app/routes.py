@@ -79,7 +79,6 @@ def eval():
         citizen.name = form.full_name.data
         print(form.full_name.data)
         db.session.commit()
-    print('nope')
     return render_template(
         'eval.html',
         links=get_links(),
