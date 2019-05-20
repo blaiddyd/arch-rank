@@ -12,6 +12,12 @@
                You have entered an invalid Citizen ID.
           </div>
      {% endif %}
+
+     {% if cant_report_self %}
+          <div class="alert alert-danger" role="alert">
+               You can't report yourself!
+          </div>
+     {% endif %}
      <div class="container-fluid">
           
           <div id="formtabs" class="tab--slider">

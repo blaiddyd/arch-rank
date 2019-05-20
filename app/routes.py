@@ -35,7 +35,7 @@ def get_links():
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Welcome', links=get_links())
+    return redirect(url_for('login'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -68,6 +68,7 @@ def register():
 @login_required
 def feed():
     invalid_citizen = False
+    cant_report_self = False
     submit_error = False
     status_page = request.args.get('status', 1, type=int)
     reports_page = request.args.get('reports', 1, type=int)
@@ -78,6 +79,8 @@ def feed():
             citizen_id=form.traitor.data).first()
         if reported is None:
             invalid_citizen = True
+        elif reported.citizen_id == current_user.citizen_id:
+            cant_report_self = True
         else:
             try:
                 reported.score = reported.score + float(form.category.data)
@@ -138,7 +141,8 @@ def feed():
         reports=reports.items,
         status_input=status_input,
         statuses=all_status.items,
-        invalid_citizen=invalid_citizen
+        invalid_citizen=invalid_citizen,
+        cant_report_self=cant_report_self
     )
 
 

@@ -5,15 +5,35 @@ from wtforms.fields.html5 import EmailField
 from app.models import Citizen
 
 offenses = [
-    ('-1000', 'Speaking Ill of the Supreme Commander'),
-    ('-2000', 'Being such a bad citizen that the world hates you also you were adopted'),  # nopep8
+    ('-3000', 'Speaking Ill of the Supreme Commander'),
     ('-100', 'Insulting a Fellow Citizen'),
-    ('-3000', 'Not Celebrating *Important Holiday*')
+    ('-1000', 'Not Celebrating Important Holiday'),
+    ('-200', "Insulting the Royal Webmaster's code"),
+    ('-2000', 'Conspiring against our Government'),
+    ('-500', 'Physical Violence'),
+    ('-800', 'Loyalty to Greece'),
+    ('-500', 'Defamation'),
+    ('-200', 'Being passive-aggressive on Social Media'),
+    ('-2000', 'Voting for the oppositon'),
+    ('-100', 'Gossiping wrongfully'),
+    ('-700', 'Theft'),
+    ('-1000', 'Murder'),
+    ('500', 'Charity Work'),
+    ('1000', 'Praising the Supreme Commander'),
+    ('500', 'Working overtime'),
+    ('200', 'Contributing to the Community'),
+    ('200', "Performing a Citizen's arrest"),
+    ('1000', 'Outing a Conspirator')
 ]
 activities = [
     ('5000', 'Graduating from Divine Academy'),
     ('700', 'Praising the Supreme Commander'),
-    ('900', 'Contributing to the Community')
+    ('900', 'Contributing to the Community'),
+    ('500', 'Charity Work'),
+    ('500', 'Working overtime'),
+    ('200', 'Contributing to the Community'),
+    ('200', "Performing a Citizen's arrest"),
+    ('1000', 'Outing a Conspirator')
 ]
 
 
@@ -54,7 +74,7 @@ class SignUp(FlaskForm):
 class CitizenReport(FlaskForm):
     traitor = StringField(
         "The Traitor's Citizen ID",
-        render_kw={"placeholder": "Traitor ID"},
+        render_kw={"placeholder": "Citizen's ID"},
         validators=[DataRequired(), Length(min=4, max=8)])
     category = SelectField(
         'Type of Treason',
