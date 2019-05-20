@@ -122,9 +122,9 @@ def logout():
 @login_required
 def feed():
     citizen = Citizen.query.filter_by(
-            citizen_id=form.citizen_id.data).first()
-    if not citzen.eval_complete:
-        return redirect('eval')
+            citizen_id=current_user.citizen_id).first()
+    if not citizen.eval_complete:
+        return redirect(url_for('eval'))
     invalid_citizen = False
     submit_error = False
     status_page = request.args.get('status', 1, type=int)
