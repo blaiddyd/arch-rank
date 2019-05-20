@@ -18,4 +18,4 @@ build/
 
 *.log
 
-app.db
+*.db
