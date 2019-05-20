@@ -6,9 +6,12 @@
 
 {% block content %}
      <div class="profilebox">
-          <img id="profile_pic" src="{{ citizen.profile_image }}">
-          <button onclick="request_random_img()">Random</button>
-          
+          <div class="pic-container">
+               <img id="profile_pic" class="image" src="{{ citizen.profile_image }}">
+               <div class="overlay">
+                    <button class="btn" onclick="request_random_img()">Random</button>
+               </div>
+          </div>
      </div>
      <script>
           function request_random_img() {

@@ -1,6 +1,6 @@
 from flask import render_template, jsonify
 from app import app, db
-from app.forms import Login, SignUp, CitizenReport, CitizenStatus, DeleteUser, Eval
+from app.forms import Login, SignUp, CitizenReport, CitizenStatus, DeleteUser, Eval  # nopep8
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import Citizen, Report, Status, Image
 from flask import redirect, url_for, flash, request
@@ -83,8 +83,9 @@ def eval():
             citizen_id=current_user.citizen_id).first()
         citizen.name = form.full_name.data
         citizen.eval_complete = 1
+        random_img = random.choice(Image.query.all()).image_url
+        citizen.set_pic(random_img)
         db.session.commit()
-        flash('Welcome to arch')
         return redirect('feed')
     else:
         print('Form did not validate ' + str(form.errors))
@@ -100,7 +101,7 @@ def login():
         return redirect(url_for('feed'))
     form = Login()
     if not form.validate_on_submit():
-        print('Form did not validate')
+        print('Form did not validate ')
     if form.validate_on_submit():
         citizen = Citizen.query.filter_by(
             citizen_id=form.citizen_id.data).first()
@@ -108,7 +109,11 @@ def login():
             flash('Incorrect Citizen ID or Password')
             return redirect(url_for('login'))
         login_user(citizen)
-        return redirect(url_for('feed'))
+        flash('Good login')
+        if citizen.permission != 'admin':
+            return redirect(url_for('feed'))
+        else:
+            return redirect(url_for('admin_board'))
     return render_template(
         'login.html',
         form=form,
@@ -168,7 +173,7 @@ def feed():
                 citizen_id=current_user.citizen_id).first()
             if current_citizen is None:
                 invalid_citizen = True
-            else: 
+            else:
                 current_citizen.score = current_citizen.score + \
                     float(status_input.status_category.data)
                 db.session.commit()
@@ -264,7 +269,7 @@ def rank():
     prev_citizens = url_for('rank', page=citizens.prev_num) \
         if citizens.has_prev else None
     top_citizens = Citizen.query.filter(
-        Citizen.score >= 5000).order_by(
+        Citizen.score >= 60000).order_by(
         func.random()).limit(3)
     return render_template(
         'rank.html',
@@ -294,7 +299,8 @@ def admin_board():
             if citizens.has_prev else None
         if delete_user.validate_on_submit():
             try:
-                delete_citizen = Citizen.query.filter_by(citizen_id=delete_user.citizen_id.data).first()
+                delete_citizen = Citizen.query.filter_by(
+                    citizen_id=delete_user.citizen_id.data).first()
                 if delete_citizen is None:
                     error = True
                 else:
@@ -308,41 +314,12 @@ def admin_board():
         else:
             print('Form did not validate')
             print(str(delete_user.errors))
-        return render_template('admin.html', title="Webmaster Dashboard", citizens=citizens.items, success=success, error=error, delete=delete_user, next=next_citizens, prev=prev_citizens)
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('feed'))
-    form = Login()
-    if not form.validate_on_submit():
-        print('Form did not validate ')
-    if form.validate_on_submit():
-        citizen = Citizen.query.filter_by(
-            citizen_id=form.citizen_id.data).first()
-        if citizen is None or not citizen.check_password(form.password.data):
-            flash('Incorrect Citizen ID or Password')
-            return redirect(url_for('login'))
-        login_user(citizen)
-        flash('Good login')
-        if citizen.permission != 'admin':
-            return redirect(url_for('feed'))
-        else:
-            return redirect(url_for('admin_board'))
-    return render_template(
-        'login.html',
-        form=form,
-        links=get_links(),
-        title="Login")
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
-
-
-@app.route('/about')
-def about():
-    return 'This is about'
+        return render_template(
+            'admin.html',
+            title="Webmaster Dashboard",
+            citizens=citizens.items,
+            success=success,
+            error=error,
+            delete=delete_user,
+            next=next_citizens,
+            prev=prev_citizens)

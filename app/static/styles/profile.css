@@ -3,10 +3,31 @@
     grid-template-rows: 1fr 3fr; 
 }
 
-#profile_pic {
-    
-    object-fit: cover;
+.pic-container {
     width: calc(100px + 10vmin);
     height: calc(100px + 10vmin);
-    clip-path: circle(calc(50px + 5vmin) at center);
 }
+
+#profile_pic {
+    object-fit: cover;
+    width: inherit;
+    height: inherit;
+    clip-path: circle(calc(50px + 5vmin) at center);
+    opacity: 1;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.overlay {
+    transition: .5s ease;
+    opacity: 0;
+    text-align: center;
+  }
+
+  .pic-container:hover .image {
+    opacity: 0.3;
+  }
+  
+  .pic-container:hover .overlay {
+    opacity: 1;
+  }
