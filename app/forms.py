@@ -34,7 +34,7 @@ class SignUp(FlaskForm):
     citizen_id = StringField(
         'Citizen ID',
         render_kw={"placeholder": "Citizen ID"},
-        validators=[DataRequired()])
+        validators=[DataRequired(), Length(min=4, max=8)])
     password = PasswordField(
         'Password',
         render_kw={"placeholder": "Password"},
@@ -75,3 +75,10 @@ class CitizenStatus(FlaskForm):
         choices=activities,
         validators=[DataRequired()])
     status_submit = SubmitField('Submit Status')
+
+class DeleteUser(FlaskForm):
+    citizen_id = StringField(
+        'Citizen',
+        render_kw={"placeholder": "Citizen ID"},
+        validators=[DataRequired(), Length(min=4, max=8)])
+    delete_submit = SubmitField('Delete Citizen')
