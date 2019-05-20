@@ -1,6 +1,6 @@
 from flask import render_template, jsonify
 from app import app, db
-from app.forms import Login, SignUp, CitizenReport, CitizenStatus, Eval
+from app.forms import Login, SignUp, CitizenReport, CitizenStatus, DeleteUser, Eval
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import Citizen, Report, Status, Image
 from flask import redirect, url_for, flash, request
@@ -141,7 +141,6 @@ def feed():
             citizen_id=form.traitor.data).first()
         if reported is None:
             invalid_citizen = True
-            return redirect(url_for('feed'))
         else:
             try:
                 reported.score = reported.score + float(form.category.data)
@@ -167,20 +166,23 @@ def feed():
         try:
             current_citizen = Citizen.query.filter_by(
                 citizen_id=current_user.citizen_id).first()
-            current_citizen.score = current_citizen.score + \
-                float(status_input.status_category.data)
-            db.session.commit()
-            status_subject = dict(
-                status_input.status_category.choices).get(
-                status_input.status_category.data)
-            new_status = Status(
-                citizen_id=current_user.citizen_id,
-                status_id=gen_id(),
-                status_category=status_subject,
-                body=status_input.status.data)
-            db.session.add(new_status)
-            db.session.commit()
-            print('Status submission successful')
+            if current_citizen is None:
+                invalid_citizen = True
+            else: 
+                current_citizen.score = current_citizen.score + \
+                    float(status_input.status_category.data)
+                db.session.commit()
+                status_subject = dict(
+                    status_input.status_category.choices).get(
+                    status_input.status_category.data)
+                new_status = Status(
+                    citizen_id=current_user.citizen_id,
+                    status_id=gen_id(),
+                    status_category=status_subject,
+                    body=status_input.status.data)
+                db.session.add(new_status)
+                db.session.commit()
+                print('Status submission successful')
         except Exception as status_error:
             print('Status submission error: ' + str(status_error))
     else:
@@ -188,18 +190,10 @@ def feed():
         print(status_input.errors)
     reports = Report.query.order_by(
         Report.time.desc()).paginate(
-        reports_page, 5, False)
-    next_reports = url_for('feed', reports=reports.next_num) \
-        if reports.has_next else None
-    prev_reports = url_for('feed', reports=reports.prev_num) \
-        if reports.has_prev else None
+        reports_page, 20, False)
     all_status = Status.query.order_by(
         Status.timestamp.desc()).paginate(
-        status_page, 5, False)
-    next_statuses = url_for('feed', status=all_status.next_num) \
-        if all_status.has_next else None
-    prev_statuses = url_for('feed', status=all_status.prev_num) \
-        if all_status.prev else None
+        status_page, 20, False)
     return render_template(
         'feed.html',
         title='Feed',
@@ -207,10 +201,8 @@ def feed():
         reports=reports.items,
         status_input=status_input,
         statuses=all_status.items,
-        next_reports=next_reports,
-        prev_reports=prev_reports,
-        next_statuses=next_statuses,
-        prev_statuses=prev_statuses)
+        invalid_citizen=invalid_citizen
+    )
 
 
 @app.route('/profile')
@@ -281,3 +273,76 @@ def rank():
         next=next_citizens,
         prev=prev_citizens,
         title="Rank")
+
+
+@app.route('/admin_board', methods=['GET', 'POST'])
+@login_required
+def admin_board():
+    success = False
+    error = False
+    if str(current_user.permission) != 'admin':
+        return redirect(url_for('feed'))
+    else:
+        delete_user = DeleteUser()
+        page = request.args.get('page', 1, type=int)
+        citizens = Citizen.query.order_by(
+            Citizen.score.desc()).paginate(
+            page, 10, False)
+        next_citizens = url_for('page', page=citizens.next_num) \
+            if citizens.has_next else None
+        prev_citizens = url_for('page', page=citizens.prev_num) \
+            if citizens.has_prev else None
+        if delete_user.validate_on_submit():
+            try:
+                delete_citizen = Citizen.query.filter_by(citizen_id=delete_user.citizen_id.data).first()
+                if delete_citizen is None:
+                    error = True
+                else:
+                    delete_citizen.delete()
+                    db.session.commit()
+                    print('Deleted user.')
+                    success = True
+            except Exception as e:
+                print('Error in deleting user ' + str(e))
+                error = True
+        else:
+            print('Form did not validate')
+            print(str(delete_user.errors))
+        return render_template('admin.html', title="Webmaster Dashboard", citizens=citizens.items, success=success, error=error, delete=delete_user, next=next_citizens, prev=prev_citizens)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('feed'))
+    form = Login()
+    if not form.validate_on_submit():
+        print('Form did not validate ')
+    if form.validate_on_submit():
+        citizen = Citizen.query.filter_by(
+            citizen_id=form.citizen_id.data).first()
+        if citizen is None or not citizen.check_password(form.password.data):
+            flash('Incorrect Citizen ID or Password')
+            return redirect(url_for('login'))
+        login_user(citizen)
+        flash('Good login')
+        if citizen.permission != 'admin':
+            return redirect(url_for('feed'))
+        else:
+            return redirect(url_for('admin_board'))
+    return render_template(
+        'login.html',
+        form=form,
+        links=get_links(),
+        title="Login")
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+@app.route('/about')
+def about():
+    return 'This is about'
