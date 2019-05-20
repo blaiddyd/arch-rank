@@ -142,8 +142,7 @@ class Eval(FlaskForm):
         render_kw={
             "type": "date",
             "data-validation": "date",
-            "data-validation-error-msg": " "},
-        validators=[DataRequired()])
+            "data-validation-error-msg": " "})
     home_address = StringField(
         'Home Address',
         render_kw={

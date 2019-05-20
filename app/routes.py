@@ -72,12 +72,17 @@ def register():
 @app.route('/evaluation', methods=['GET', 'POST'])
 @login_required
 def eval():
+    citizen = Citizen.query.filter_by(
+            citizen_id=current_user.citizen_id).first()
+    if citizen.eval_complete:
+        return redirect(url_for('feed'))
     form = Eval()
     print(form.birth_date.data)
     if form.validate_on_submit():
         citizen = Citizen.query.filter_by(
             citizen_id=current_user.citizen_id).first()
         citizen.name = form.full_name.data
+        citizen.eval_complete = 1
         db.session.commit()
         flash('Welcome to arch')
         return redirect('feed')
@@ -211,7 +216,11 @@ def feed():
 @app.route('/profile')
 @login_required
 def profile_home():
-    user_id = current_user.citizen_id
+    citizen = Citizen.query.filter_by(
+            citizen_id=current_user.citizen_id).first()
+    if not citizen.eval_complete:
+        return redirect(url_for('eval'))
+    user_id = citizen.citizen_id
     return redirect(url_for('profile', citizen_id=user_id))
 
 
