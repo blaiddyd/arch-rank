@@ -74,10 +74,10 @@ def gen_score(form):
         score = 30000
         score += (3 - int(form.island.data[0])) * 2500
         score += (4 - int(form.profession.data[0])) * 3000
-        score += (form.income.data/100)
+        score += (form.income.data/1000)
         score += int(form.kids.data[0])*500
         score += int(form.lonely.data) * -1000
-        return score
+        return int(score)
 
 
 @app.route('/evaluation', methods=['GET', 'POST'])
@@ -189,7 +189,7 @@ def feed():
                 invalid_citizen = True
             else:
                 current_citizen.score = current_citizen.score + \
-                    float(status_input.status_category.data)
+                    int(status_input.status_category.data)
                 db.session.commit()
                 status_subject = dict(
                     status_input.status_category.choices).get(
@@ -243,12 +243,19 @@ def profile(citizen_id):
     citizen = Citizen.query.filter_by(citizen_id=citizen_id).first_or_404()
     title = citizen.name
     is_self = False
-    all_status = Status.query.filter_by(citizen_id=citizen.citizen_id).order_by(
+    all_status = Status.query.filter_by(
+        citizen_id=citizen.citizen_id).order_by(
         Status.timestamp.desc()).paginate(
         status_page, 20, False)
-    next = url_for('profile', citizen_id=citizen.citizen_id, status_page=all_status.next_num) \
+    next = url_for(
+        'profile',
+        citizen_id=citizen.citizen_id,
+        status_page=all_status.next_num) \
         if all_status.has_next else None
-    prev = url_for('profile', citizen_id=citizen.citizen_id, status_page=all_status.prev_num) \
+    prev = url_for(
+        'profile',
+        citizen_id=citizen.citizen_id,
+        status_page=all_status.prev_num) \
         if all_status.has_prev else None
     if citizen_id == current_user.citizen_id:
         is_self = True

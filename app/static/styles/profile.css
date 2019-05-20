@@ -11,13 +11,13 @@
 }
 
 .info h1 {
-    font-size: calc(50px + 2vw);
+    font-size: 60px;
     color: #4e78a9;
     margin: 0;
 }
 
 .info h2 {
-    font-size: calc(10px + 2vw);
+    font-size: 25px;
     color: #5e5e5e;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .score h3 {
-    font-size: calc(5px + 3vw);
+    font-size: 30px;
     text-align: center;
 }
 

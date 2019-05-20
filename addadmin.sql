@@ -1,5 +1,0 @@
-PRAGMA foreign_keys=OFF;
-BEGIN TRANSACTION;
-
-INSERT INTO citizen VALUES('1111','1111','pbkdf2:sha256:150000$6RcMBIGd$212e17e966c8efd700562c69a10d94ea30e0709bb7508f2ce8c396982ad5dbd0','admin',NULL,20000.0,'/static/assets/blank_profile.png',NULL,NULL,NULL);
-COMMIT;
