@@ -75,10 +75,12 @@ def eval():
     form = Eval()
     if form.validate_on_submit():
         citizen = Citizen.query.filter_by(
-            citizen_id=current_user.citizen_id).first_or_404()
+            citizen_id=current_user.citizen_id).first()
         citizen.name = form.full_name.data
-        print(form.full_name.data)
         db.session.commit()
+        return redirect(url_for('feed'))
+    else:
+        print('Form did not validate')
     return render_template(
         'eval.html',
         links=get_links(),
@@ -224,6 +226,7 @@ def profile(citizen_id):
 @app.route('/profile/random_img')
 @login_required
 def random_profile():
+    get_images(10)
     citizen = Citizen.query.filter_by(
         citizen_id=current_user.citizen_id).first_or_404()
     random_img = random.choice(Image.query.all()).image_url
@@ -235,7 +238,7 @@ def random_profile():
 def get_images(num):
     client_id = app.config['IMG_ACCESS']
     orientation = 'squarish'
-    count = nums
+    count = num
     url = 'https://api.unsplash.com/photos/random/?client_id={}&orientation={}&count={}'.format(client_id, orientation, count)  # nopep8
     content = get(url).json()
     for img in content:

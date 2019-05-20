@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, TextAreaField, DateField, IntegerField  # nopep8
-from wtforms.validators import DataRequired, EqualTo, ValidationError, Length
+from wtforms.validators import DataRequired, EqualTo, ValidationError, Length, AnyOf  # nopep8
 from wtforms.fields.html5 import EmailField
 from app.models import Citizen
 
