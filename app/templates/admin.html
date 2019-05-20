@@ -5,6 +5,11 @@
 
 {% block content %}
     <h3>Citizens</h3>
+    {% if success %}
+        <div class="alert alert-info" role="alert">
+            Citizen deleted successfully. Please refresh the page to update the citizen roster.
+        </div>
+    {% endif %}
     <ul class="list-group">
         {% for citizen in citizens %}
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -14,58 +19,53 @@
                 {% else %}
                     <span class="perm">Citizen</span>
                 {% endif %}
-                <a href="{{ url_for('profile', citizen_id=citizen.citizen_id) }}">{{ citizen.citizen_id }}</a>: 
-                    <span class="badge badge-pill">{{ citizen.score }}</span>
+                <a href="{{ url_for('profile', citizen_id=citizen.citizen_id) }}">{{ citizen.citizen_id }}</a>
                 </span>
-                <div class="citizen-actions">
-                    <ul class="icon-list">
-                        {% if current_user.citizen_id != citizen.citizen_id %}
-                            {% if citizen.permission != 'admin' %}
-                            <button class="btn" data-toggle="modal" data-target="#makeAdmin">
-                                <i class="material-icons" id="admin">
-                                    star
-                                </i>
-                            </button>
-                            {% endif %}
-                            <button class="btn" data-toggle="modal" data-target="#open-delete">
-                                <i class="material-icons">
-                                    delete
-                                </i>
-                            </button>
-                            <button class="btn" data-toggle="modal" data-target="#cancelNotice">
-                                <i class="material-icons" id="cancel">
-                                    not_interested
-                                </i>
-                            </button>
-                        {% endif %}
-                    </ul>
-                    <div class="modal fade" id="open-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Are you sure you would like to delete this citizen? </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST" action="" novalidate>
-                                    {{ delete.hidden_tag() }}
-                                    {{ delete.citizen_id.label() }}
-                                    {{ delete.citizen_id(placeholder=citizen.citizen_id, value=citizen.citizen_id) }}
-                                
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                {{ delete.delete_submit(class="btn btn-danger") }}
-                            </div>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <span class="badge badge-pill">{{ citizen.score }}</span>
             </li>
         {% endfor %}
     </ul>
 
+    <div class="citizen-actions">
+        <button class="btn btn btn-danger" data-toggle="modal" data-target="#delete-window"> 
+            Delete Citizen
+        </button>
+        <button class="btn btn-secondary">
+            Cancel a Citizen
+        </button>
+    </div>
+
+    <div class="pagination">
+        {% if prev %}
+            <a class="page-link" href="{{ prev }}">Higher</a>
+        {% endif %}
+
+        {% if next %}
+            <a class="page-link" href="{{ next }}">Lower</a>
+        {% endif %}
+    </div>
+
+    <div class="modal fade" id="delete-window" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Which Citizen would you like to delete?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form method="POST" novalidate>
+                <div class="modal-body">
+                    {{ delete.hidden_tag() }}
+                    
+                    {{ delete.citizen_id(placeholder="Citizen ID") }}
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                {{ delete.delete_submit(class="btn btn-danger") }}
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 from flask import render_template, jsonify
 from app import app, db
-from app.forms import Login, SignUp, CitizenReport, CitizenStatus, DeleteUser, MakeAdmin
+from app.forms import Login, SignUp, CitizenReport, CitizenStatus, DeleteUser
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import Citizen, Report, Status, Image
 from flask import redirect, url_for, flash, request
@@ -217,33 +217,31 @@ def rank():
 @app.route('/admin_board', methods=['GET', 'POST'])
 @login_required
 def admin_board():
+    success = False
     if str(current_user.permission) != 'admin':
         return redirect(url_for('feed'))
     else:
-        add_new_user = MakeAdmin()
         delete_user = DeleteUser()
-        is_current = False
         page = request.args.get('page', 1, type=int)
         citizens = Citizen.query.order_by(
             Citizen.score.desc()).paginate(
             page, 10, False)
+        next_citizens = url_for('page', page=citizens.next_num) \
+            if citizens.has_next else None
+        prev_citizens = url_for('page', page=citizens.prev_num) \
+            if citizens.has_prev else None
         if delete_user.validate_on_submit():
             try:
                 Citizen.query.filter_by(citizen_id=delete_user.citizen_id.data).delete()
                 db.session.commit()
                 print('Deleted user.')
+                success = True
             except Exception as e:
                 print('Error in deleting user ' + str(e))
         else:
             print('Form did not validate')
-        if add_new_user.validate_on_submit():
-            try:
-                new_admin = Citizen.query.filter_by(citizen_id=add_new_user.citizen_id.data).first()
-                new_admin.permission = 'admin'
-                db.session.commit()
-            except Exception as e:
-                print('Error in making user admin ' + str(e))
-        return render_template('admin.html', citizens=citizens.items, delete=delete_user, add=add_new_user)
+            print(str(delete_user.errors))
+        return render_template('admin.html', citizens=citizens.items, success=success, delete=delete_user, next=next_citizens, prev=prev_citizens)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

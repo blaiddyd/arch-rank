@@ -20,7 +20,7 @@
           </div>
           <div class="tab--container">
                <div id="report-tab" class="tab--body">
-                    <form method="post">
+                    <form method="post" novalidate>
                          {{ form.hidden_tag() }}
                          <div class="form-actions">
                               <div class="form-actions--container">
@@ -38,7 +38,7 @@
                </div>
 
                <div id="status-tab" class="tab--body">
-                    <form method="post">
+                    <form method="post" novalidate>
                          {{ status_input.hidden_tag() }}
                          <div class="form-actions">
                               <div class="form-actions--container">

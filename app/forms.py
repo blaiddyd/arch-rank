@@ -80,11 +80,5 @@ class DeleteUser(FlaskForm):
     citizen_id = StringField(
         'Citizen',
         render_kw={"placeholder": "Citizen ID"},
-        validators=[DataRequired(), Length(min=4, max=8)])
+        validators=[DataRequired(), Length(min=4, max=10)])
     delete_submit = SubmitField('Delete Citizen')
-
-class MakeAdmin(FlaskForm):
-    citizen_id = StringField(
-        'Citizen',
-        validators=[DataRequired(),Length(min=4, max=8)])
-    admin_submit = SubmitField('Make Admin')

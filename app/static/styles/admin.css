@@ -4,8 +4,9 @@ a {
     color: #4e79a8;
 }
 
-.citizen-actions i {
-    color: red;
+.citizen-actions {
+    margin-top: 10px;
+    float: right;
 }
 
 #cancel {
@@ -17,12 +18,12 @@ a {
 }
 
 .modal #citizen_id {
-    border: none;
-    border-bottom: 2px #4e79a8 solid;
-    width: 17%;
+    border: 2px #4e79a8 solid;
+    width: 40%;
+    border-radius: 10px;
 }
 
-.modal-body form {
+.modal-body {
     text-align: center;
 }
 
