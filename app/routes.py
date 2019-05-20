@@ -256,7 +256,6 @@ def profile(citizen_id):
 @app.route('/profile/random_img')
 @login_required
 def random_profile():
-    get_images(10)
     citizen = Citizen.query.filter_by(
         citizen_id=current_user.citizen_id).first_or_404()
     random_img = random.choice(Image.query.all()).image_url
@@ -266,6 +265,7 @@ def random_profile():
 
 
 def get_images(num):
+    print("Getting images")
     client_id = app.config['IMG_ACCESS']
     orientation = 'squarish'
     count = num
