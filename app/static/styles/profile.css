@@ -21,8 +21,19 @@
 .overlay {
     transition: .5s ease;
     opacity: 0;
+    transform: translateY(-100px);
     text-align: center;
   }
+
+.overlay button {
+    background-color: #424242;
+    color: #f8f8f8;
+}
+
+.overlay button:hover {
+    background-color: #5e5e5e;
+    color: #f8f8f8;
+}
 
   .pic-container:hover .image {
     opacity: 0.3;
