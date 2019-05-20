@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, TextAreaField, DateField, IntegerField  # nopep8
-from wtforms.validators import DataRequired, EqualTo, ValidationError, Length, AnyOf  # nopep8
+from wtforms.validators import DataRequired, EqualTo, ValidationError, Length  # nopep8
 from wtforms.fields.html5 import EmailField
 from app.models import Citizen
 
@@ -17,49 +17,52 @@ activities = [
 ]
 professions = [
     ('', 'Select your profession'),
-    (1, 'High Priest'),
-    (1, 'Royal Accountant'),
-    (1, 'Industrial Overseer'),
-    (1, 'High Court Scientist'),
-    (1, 'Counsel Advisor'),
-    (1, 'Traitor Hunter'),
-    (1, 'Mind Seer'),
-    (1, 'Royal Webmaster'),
-    (2, 'Personel Manager'),
-    (2, 'Comissioned Artist'),
-    (2, 'Ferryman'),
-    (2, 'Archival Custodian'),
-    (2, 'Public Lawyer')
+    ('1', 'High Priest'),
+    ('1', 'Royal Accountant'),
+    ('1', 'Industrial Overseer'),
+    ('1', 'High Court Scientist'),
+    ('1', 'Counsel Advisor'),
+    ('1', 'Traitor Hunter'),
+    ('1', 'Mind Seer'),
+    ('1', 'Royal Webmaster'),
+    ('2', 'Personel Manager'),
+    ('2', 'Comissioned Artist'),
+    ('2', 'Ferryman'),
+    ('2', 'Archival Custodian'),
+    ('2', 'Public Lawyer'),
+    ('3', 'Office Drone'),
+    ('3', 'Mechanical Technician'),
+    ('3', 'Behavior Counselor')
 ]
 islands = [
     ('', 'Select your island'),
-    (1, 'Santorini'),
-    (1, 'Samos'),
-    (1, 'Mykonos'),
-    (1, 'Delos'),
-    (1, 'Nisyros'),
-    (1, 'Izmir'),
-    (1, 'Symi'),
-    (2, 'Chios'),
-    (2, 'Rhodes'),
-    (2, 'Kos'),
-    (2, 'Samothrace'),
-    (2, 'Leros'),
-    (2, 'Thasos'),
-    (3, 'Lemnos'),
-    (3, 'Icaria'),
-    (3, 'Naxos'),
-    (3, 'Andros'),
-    (3, 'Euboea'),
-    (3, 'Amorgos'),
-    (4, 'Patmos'),
-    (4, 'Milos'),
-    (4, 'Karpathos'),
-    (4, 'Skyros'),
-    (4, 'Skiathos'),
-    (4, 'Kalymnos'),
-    (5, 'Hydra'),
-    (6, 'Syros')
+    ('1', 'Santorini'),
+    ('1', 'Samos'),
+    ('1', 'Mykonos'),
+    ('1', 'Delos'),
+    ('1', 'Nisyros'),
+    ('1', 'Izmir'),
+    ('1', 'Symi'),
+    ('2', 'Chios'),
+    ('2', 'Rhodes'),
+    ('2', 'Kos'),
+    ('2', 'Samothrace'),
+    ('2', 'Leros'),
+    ('2', 'Thasos'),
+    ('3', 'Lemnos'),
+    ('3', 'Icaria'),
+    ('3', 'Naxos'),
+    ('3', 'Andros'),
+    ('3', 'Euboea'),
+    ('3', 'Amorgos'),
+    ('4', 'Patmos'),
+    ('4', 'Milos'),
+    ('4', 'Karpathos'),
+    ('4', 'Skyros'),
+    ('4', 'Skiathos'),
+    ('4', 'Kalymnos'),
+    ('5', 'Hydra'),
+    ('6', 'Syros')
 ]
 
 
@@ -135,7 +138,7 @@ class Eval(FlaskForm):
         validators=[DataRequired()])
     birth_date = DateField(
         'DOB',
-        format='%d-%m-%Y',
+        format='%Y-%m-%d',
         render_kw={
             "type": "date",
             "data-validation": "date",
@@ -176,20 +179,20 @@ class Eval(FlaskForm):
     kids = SelectField(
         'How many kids do you have?',
         choices=[
-            (0, 'I have no children'),
-            (1, 'I have but one child'),
-            (2, 'I have two lovely children'),
-            (3, 'There are three children in my household'),
-            (4, 'Four children have graced my life with their smiles'),
-            (5, 'Not four but five! Five children are there to greet me when I wake'),  # nopep8
-            (6, 'The number of children I have is more than five but less than seven alas'),  # nopep8
-            (7, 'I have one child for each day of the beautiful week and I have named them accordingly'),  # nopep8
-            (8, 'My children are bountiful as the apples on the trees, as the islands of Agea, as the eight wise elders'),  # nopep8
-            (9, 'I have nine children')],
+            ('0', 'I have no children'),
+            ('1', 'I have but one child'),
+            ('2', 'I have two lovely children'),
+            ('3', 'There are three children in my household'),
+            ('4', 'Four children have graced my life with their smiles'),
+            ('5', 'Not four but five! Five children are there to greet me when I wake'),  # nopep8
+            ('6', 'The number of children I have is more than five but less than seven alas'),  # nopep8
+            ('7', 'I have one child for each day of the beautiful week and I have named them accordingly'),  # nopep8
+            ('8', 'My children are bountiful as the apples on the trees, as the islands of Agea, as the eight wise elders'),  # nopep8
+            ('9', 'I have nine children')],
         render_kw={
             "data-validation": "required",
             "data-validation-error-msg": " "},
-        validators=[DataRequired()])
+        validators=[DataRequired(message='kids')])
     lonely = BooleanField(
         'Are you lonely?',
         default=True)

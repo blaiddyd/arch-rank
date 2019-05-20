@@ -73,17 +73,18 @@ def register():
 @login_required
 def eval():
     form = Eval()
+    print(form.birth_date.data)
     if form.validate_on_submit():
         citizen = Citizen.query.filter_by(
             citizen_id=current_user.citizen_id).first()
         citizen.name = form.full_name.data
         db.session.commit()
-        return redirect(url_for('feed'))
+        flash('Welcome to arch')
+        return redirect('feed')
     else:
-        print('Form did not validate')
+        print('Form did not validate ' + str(form.errors))
     return render_template(
         'eval.html',
-        links=get_links(),
         title='Evaluation',
         form=form)
 
@@ -120,6 +121,10 @@ def logout():
 @app.route('/feed', methods=['GET', 'POST'])
 @login_required
 def feed():
+    citizen = Citizen.query.filter_by(
+            citizen_id=form.citizen_id.data).first()
+    if not citzen.eval_complete:
+        return redirect('eval')
     invalid_citizen = False
     submit_error = False
     status_page = request.args.get('status', 1, type=int)
