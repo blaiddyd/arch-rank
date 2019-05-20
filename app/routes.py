@@ -224,14 +224,22 @@ def profile_home():
 @app.route('/profile/<citizen_id>')
 @login_required
 def profile(citizen_id):
+    status_page = request.args.get('page', 1, type=int)
     citizen = Citizen.query.filter_by(citizen_id=citizen_id).first_or_404()
     title = citizen.name
     is_self = False
+    all_status = Status.query.filter_by(citizen_id=citizen.citizen_id).order_by(
+        Status.timestamp.desc()).paginate(
+        status_page, 20, False)
+    next = url_for('profile', citizen_id=citizen.citizen_id, status_page=all_status.next_num) \
+        if all_status.has_next else None
+    prev = url_for('profile', citizen_id=citizen.citizen_id, status_page=all_status.prev_num) \
+        if all_status.has_prev else None
     if citizen_id == current_user.citizen_id:
         is_self = True
         title = 'My Profile'
     return render_template(
-        'profile.html', title=title, citizen=citizen, is_self=is_self)
+        'profile.html', title=title, citizen=citizen, is_self=is_self, status=all_status.items, next=next, prev=prev)
 
 
 @app.route('/profile/random_img')
